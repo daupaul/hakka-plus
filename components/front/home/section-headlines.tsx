@@ -1,29 +1,46 @@
 "use client";
 
+import Link from "next/link";
 import { useContent } from "@/lib/store/content";
-import { CardArticle } from "@/components/ui/card-article";
 import { SectionShell } from "./section-shell";
+import { Badge } from "@/components/ui/badge";
+import { ChevronRight } from "lucide-react";
 
 export function SectionHeadlines() {
   const news = useContent((s) => s.news);
   const sorted = [...news]
     .filter((n) => n.status === "published")
-    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
-  const lead = sorted.find((n) => n.featured) ?? sorted[0];
-  const rest = sorted.filter((n) => n.id !== lead?.id).slice(0, 5);
+    .sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
+    .slice(0, 6);
 
-  if (!lead) return null;
+  if (sorted.length === 0) return null;
 
   return (
-    <SectionShell eyebrow="HAKKA HEADLINES" title="客家頭條" href="/news">
-      <div className="grid gap-4 lg:gap-5 lg:grid-cols-12">
-        <div className="lg:col-span-7">
-          <CardArticle item={lead} variant="wide" />
-        </div>
-        <div className="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-3">
-          {rest.slice(0, 4).map((item) => (
-            <CardArticle key={item.id} item={item} variant="compact" />
+    <SectionShell eyebrow="HAKKA HEADLINES" title="客庄大小事" centered>
+      <div className="relative">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 lg:gap-4 max-w-7xl mx-auto">
+          {sorted.map((n, i) => (
+            <Link key={n.id} href={`/news/${n.slug}`} className="group block">
+              <div className="relative aspect-square overflow-hidden rounded-xl bg-bg-deep">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={n.image} alt={n.title} loading="lazy" className="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                {n.featured && (
+                  <div className="absolute top-2 left-2"><Badge variant="warm">精選</Badge></div>
+                )}
+              </div>
+              <div className="mt-3 text-center">
+                <h3 className="font-display text-sm font-bold text-text-primary line-clamp-2 group-hover:text-accent transition-colors">
+                  {n.title}
+                </h3>
+              </div>
+            </Link>
           ))}
+        </div>
+
+        <div className="mt-6 flex items-center justify-center">
+          <Link href="/news" className="inline-flex items-center gap-1.5 text-sm text-accent hover:underline">
+            更多新聞 <ChevronRight className="size-4" />
+          </Link>
         </div>
       </div>
     </SectionShell>
