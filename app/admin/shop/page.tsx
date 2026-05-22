@@ -21,6 +21,8 @@ export default function AdminShopPage() {
       data={products}
       searchKeys={["name"] as (keyof Product)[]}
       searchPlaceholder="搜尋商品..."
+      newHref="/admin/shop/new"
+      newLabel="新增商品"
       filters={[
         {
           key: "category",
@@ -55,7 +57,7 @@ export default function AdminShopPage() {
         { key: "clicks", header: "點擊", sortable: true, sortValue: (p) => p.clickCount, cell: (p) => formatNumber(p.clickCount) },
       ]}
       actions={[
-        { label: "編輯", icon: <Edit className="size-4" />, onClick: () => toast({ variant: "default", title: "編輯商品（POC 簡化）" }) },
+        { label: "編輯", icon: <Edit className="size-4" />, onClick: (p) => router.push(`/admin/shop/${p.id}`) },
         { label: "刪除", icon: <Trash2 className="size-4" />, variant: "danger", onClick: (p) => {
           if (confirm(`確定刪除「${p.name}」？`)) {
             deleteProduct(p.id);

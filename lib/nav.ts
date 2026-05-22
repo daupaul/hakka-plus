@@ -121,6 +121,16 @@ export const ADMIN_NAV: AdminNavItem[] = [
     ],
   },
   {
+    href: "/admin/themes",
+    label: "主題訂閱",
+    icon: Bookmark,
+  },
+  {
+    href: "/admin/timeline",
+    label: "客家生活時間軸",
+    icon: CalendarDays,
+  },
+  {
     href: "/admin/seo",
     label: "SEO",
     icon: Globe,
