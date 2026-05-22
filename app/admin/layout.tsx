@@ -1,8 +1,19 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/layout/sidebar";
 import { AdminTopbar } from "@/components/admin/layout/topbar";
 import { AdminGuard } from "@/components/admin/layout/admin-guard";
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const isLogin = pathname === "/admin/login";
+
+  // Login page renders standalone — no sidebar / topbar / guard.
+  if (isLogin) {
+    return <>{children}</>;
+  }
+
   return (
     <AdminGuard>
       <div className="min-h-screen flex">
