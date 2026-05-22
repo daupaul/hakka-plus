@@ -1,0 +1,10 @@
+[
+  { "id": "o001", "memberId": "m001", "memberName": "陳阿華", "type": "subscription", "itemName": "年繳方案", "amount": 1800, "status": "completed", "paymentMethod": "credit-card", "createdAt": "2026-05-01T10:00:00+08:00", "paidAt": "2026-05-01T10:00:30+08:00", "invoiceNo": "AB12345678" },
+  { "id": "o002", "memberId": "m002", "memberName": "黃阿公", "type": "subscription", "itemName": "月繳方案", "amount": 199, "status": "completed", "paymentMethod": "credit-card", "createdAt": "2026-05-15T08:00:00+08:00", "paidAt": "2026-05-15T08:00:15+08:00", "invoiceNo": "AB12345679" },
+  { "id": "o003", "memberId": "m003", "memberName": "鍾阿美", "type": "single-purchase", "itemName": "燈籠師傅與他的兒子", "amount": 99, "status": "completed", "paymentMethod": "apple-pay", "createdAt": "2026-05-18T20:30:00+08:00", "paidAt": "2026-05-18T20:30:05+08:00", "invoiceNo": "AB12345680" },
+  { "id": "o004", "memberId": "m004", "memberName": "彭阿寶", "type": "product", "itemName": "峨眉東方美人茶 二兩裝", "amount": 980, "status": "completed", "paymentMethod": "credit-card", "createdAt": "2026-05-19T14:00:00+08:00", "paidAt": "2026-05-19T14:00:30+08:00", "invoiceNo": "AB12345681" },
+  { "id": "o005", "memberId": "m005", "memberName": "賴阿淑", "type": "subscription", "itemName": "年繳方案", "amount": 1800, "status": "refunded", "paymentMethod": "credit-card", "createdAt": "2026-04-22T11:00:00+08:00", "paidAt": "2026-04-22T11:00:30+08:00", "refundedAt": "2026-04-23T15:00:00+08:00", "invoiceNo": "AB12345682" },
+  { "id": "o006", "memberId": "m001", "memberName": "陳阿華", "type": "single-purchase", "itemName": "茶山書簡 EP12", "amount": 49, "status": "completed", "paymentMethod": "atm", "createdAt": "2026-05-12T16:00:00+08:00", "paidAt": "2026-05-12T16:30:00+08:00", "invoiceNo": "AB12345683" },
+  { "id": "o007", "memberId": "m002", "memberName": "黃阿公", "type": "product", "itemName": "客庄擂茶禮盒", "amount": 580, "status": "pending", "paymentMethod": "atm", "createdAt": "2026-05-21T09:30:00+08:00" },
+  { "id": "o008", "memberId": "m003", "memberName": "鍾阿美", "type": "subscription", "itemName": "月繳方案", "amount": 199, "status": "failed", "paymentMethod": "credit-card", "createdAt": "2026-05-20T22:00:00+08:00" }
+]

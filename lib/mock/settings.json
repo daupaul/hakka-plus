@@ -1,0 +1,39 @@
+{
+  "siteName": "客+",
+  "siteTagline": "日常有客，讓文化成為生活的一部分。客家電視台 2027 影音、新聞、生活、節氣，一站體驗。",
+  "contactEmail": "service@hakka.tv",
+  "contactPhone": "(02) 2633-8200",
+  "socialLinks": {
+    "facebook": "https://facebook.com/hakkatv",
+    "instagram": "https://instagram.com/hakkatv",
+    "youtube": "https://youtube.com/hakkatv",
+    "line": "https://line.me/R/ti/p/@hakkatv"
+  },
+  "appLinks": {
+    "ios": "https://apps.apple.com/tw/app/hakka",
+    "android": "https://play.google.com/store/apps/details?id=tv.hakka"
+  },
+  "integrations": {
+    "publicTvScheduleApi": "https://api.pts.org.tw/v2/schedule",
+    "inewsFtpHost": "ftp.inews.hakka.tv",
+    "inewsFtpUser": "hakka_inews",
+    "ecpayMerchantId": "MERCHANT_2000132",
+    "googleAnalyticsId": "G-XXXXXXXXXX",
+    "metaPixelId": "1234567890123456",
+    "fcmServerKey": "AAAA****-fcm-mock",
+    "smtpHost": "smtp.sendgrid.net",
+    "smtpUser": "apikey",
+    "smsProvider": "Mitake",
+    "cdnApiKey": "cf-mock-token-xxxxx"
+  },
+  "backup": {
+    "schedule": "daily",
+    "retentionDays": 30,
+    "lastBackupAt": "2026-05-21T02:00:00+08:00"
+  },
+  "monitoring": {
+    "cpuThreshold": 80,
+    "memoryThreshold": 85,
+    "diskThreshold": 90
+  }
+}

@@ -1,0 +1,17 @@
+[
+  { "id": "th01", "slug": "tea-universe", "name": "茶宇宙", "description": "從東方美人到擂茶，所有與客家茶有關的影視、新聞、策展、選物。", "cover": "https://picsum.photos/seed/theme-tea/1200/700", "tagIds": ["tag-tea", "tag-meishan", "tag-hsinchu"], "subscriberCount": 8421 },
+  { "id": "th02", "slug": "festival-calendar", "name": "節慶日曆", "description": "義民、桐花、元宵、中秋、冬至 — 跟著節氣走的客家庄。", "cover": "https://picsum.photos/seed/theme-festival/1200/700", "tagIds": ["tag-festival", "tag-yimin", "tag-tung"], "subscriberCount": 6210 },
+  { "id": "th03", "slug": "hakka-cuisine", "name": "客家家常菜", "description": "從鹹豬肉、客家小炒、桔醬豬腳到客家月餅，伙房裡的家常滋味。", "cover": "https://picsum.photos/seed/theme-food/1200/700", "tagIds": ["tag-cuisine", "tag-meinong", "tag-kitchen"], "subscriberCount": 7340 },
+  { "id": "th04", "slug": "indigo-craft", "name": "藍染與工藝", "description": "藍染、藍衫、竹編、桐花胸針 — 客家手作工藝的當代復興。", "cover": "https://picsum.photos/seed/theme-craft/1200/700", "tagIds": ["tag-indigo", "tag-craft", "tag-blueshirt"], "subscriberCount": 3210 },
+  { "id": "th05", "slug": "elder-friendly", "name": "長輩友善精選", "description": "適合家中長輩觀看的節目、新聞、節氣推薦，全程字大字慢。", "cover": "https://picsum.photos/seed/theme-elder/1200/700", "tagIds": ["tag-elder", "tag-news"], "subscriberCount": 5421 },
+  { "id": "th06", "slug": "young-creators", "name": "客家新世代創作", "description": "9m88、米莎、生祥樂隊、客家青年影像 — 新世代的客家發聲。", "cover": "https://picsum.photos/seed/theme-young/1200/700", "tagIds": ["tag-music", "tag-young"], "subscriberCount": 4012 },
+  { "id": "th07", "slug": "global-hakka", "name": "全球客家", "description": "從矽谷、東南亞到南美，全球客家社群的當代故事。", "cover": "https://picsum.photos/seed/theme-global/1200/700", "tagIds": ["tag-global", "tag-diaspora"], "subscriberCount": 2103 },
+  { "id": "th08", "slug": "child-language", "name": "客語親子共學", "description": "從《伯公樹下的孩子》到客語繪本與兒童節目，一起學客語。", "cover": "https://picsum.photos/seed/theme-child/1200/700", "tagIds": ["tag-children", "tag-language", "tag-education"], "subscriberCount": 3812 },
+  { "id": "th09", "slug": "village-rebirth", "name": "客庄再生", "description": "客委會「客庄再生」計畫追蹤，30 個入選客家庄的故事。", "cover": "https://picsum.photos/seed/theme-village/1200/700", "tagIds": ["tag-village", "tag-policy"], "subscriberCount": 1832 },
+  { "id": "th10", "slug": "documentary-deep", "name": "紀錄片深度頻道", "description": "客台自製紀錄片精選，從歷史、文化、人物到生態的長時段紀錄。", "cover": "https://picsum.photos/seed/theme-doc/1200/700", "tagIds": ["tag-documentary"], "subscriberCount": 2812 },
+  { "id": "th11", "slug": "kids-channel", "name": "小客家影視頻道", "description": "親子共看的兒童節目、動畫、教育影片。", "cover": "https://picsum.photos/seed/theme-kids/1200/700", "tagIds": ["tag-children", "tag-cartoon"], "subscriberCount": 2410 },
+  { "id": "th12", "slug": "music-collection", "name": "客語音樂頻道", "description": "客語流行、客家八音、客家民謠合輯。", "cover": "https://picsum.photos/seed/theme-music/1200/700", "tagIds": ["tag-music"], "subscriberCount": 3120 },
+  { "id": "th13", "slug": "south-hakka", "name": "六堆與南客", "description": "高雄美濃、屏東六堆等南客文化專屬頻道。", "cover": "https://picsum.photos/seed/theme-south/1200/700", "tagIds": ["tag-liudui", "tag-meinong"], "subscriberCount": 1921 },
+  { "id": "th14", "slug": "north-hakka", "name": "桃竹苗北客", "description": "桃園、新竹、苗栗北客文化與在地故事。", "cover": "https://picsum.photos/seed/theme-north/1200/700", "tagIds": ["tag-taoyuan", "tag-hsinchu", "tag-miaoli"], "subscriberCount": 2310 },
+  { "id": "th15", "slug": "tv-classics", "name": "客台經典回顧", "description": "客家電視台 20 年來經典戲劇、紀錄片回顧。", "cover": "https://picsum.photos/seed/theme-classic/1200/700", "tagIds": ["tag-classic"], "subscriberCount": 1521 }
+]

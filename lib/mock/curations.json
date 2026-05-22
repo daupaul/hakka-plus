@@ -1,0 +1,246 @@
+[
+  {
+    "id": "c01",
+    "slug": "tea-garden-slow-travel",
+    "title": "歡迎時節，走進茶園裡的一場慢旅行",
+    "subtitle": "新竹峨眉．東方美人茶產區",
+    "cover": "https://picsum.photos/seed/cur-tea-cover/1600/900",
+    "category": "旅遊",
+    "summary": "從一杯東方美人茶開始，跟著茶農走進新竹峨眉的山谷，體驗百年茶香的當代慢旅行。",
+    "body": [
+      { "type": "heading", "content": "從一杯茶開始，一段三小時的客庄漫遊" },
+      { "type": "paragraph", "content": "東方美人茶最動人之處，從來不只是它的果香與蜜味，而是茶農與小綠葉蟬之間那種「不噴藥才有」的相互依存。歡迎時節，是六月微雨初歇之後，茶農與我們踏入茶園的最佳時刻。" },
+      { "type": "image", "content": "https://picsum.photos/seed/cur-tea-1/1200/700", "caption": "雲海剛散，茶園的早晨" },
+      { "type": "paragraph", "content": "茶園不是一片風景，它是茶農、節氣、土地三者共同寫下的詩。當你親手摘下一葉一心，會明白為什麼這片葉子值得跨海到日本、韓國、北美。" },
+      { "type": "quote", "content": "「茶喝得進去，客家就喝得進去。」— 峨眉茶農 鍾秀梅" },
+      { "type": "image", "content": "https://picsum.photos/seed/cur-tea-2/1200/700", "caption": "手作擂茶 — 客家庄的午後儀式" },
+      { "type": "paragraph", "content": "下午三點，我們落腳於峨眉湖畔的客家伙房，師傅示範手作擂茶，把茶葉、芝麻、花生、糙米一起磨進陶缽裡。這碗茶喝下去，是整個客庄午後的味道。" }
+    ],
+    "relatedVideos": ["v02", "v05", "v13"],
+    "relatedProducts": ["p01", "p02"],
+    "relatedNews": ["n03", "n21"],
+    "locations": [
+      { "id": "loc-1", "name": "峨眉湖畔茶園", "lat": 24.6885, "lng": 121.0073, "description": "東方美人茶最佳賞園" },
+      { "id": "loc-2", "name": "獅頭山客家伙房", "lat": 24.7012, "lng": 120.9521, "description": "百年三合院改造" }
+    ],
+    "tags": ["茶", "新竹", "慢旅行", "東方美人"],
+    "status": "published",
+    "publishedAt": "2026-05-10T00:00:00+08:00",
+    "viewCount": 12421
+  },
+  {
+    "id": "c02",
+    "slug": "yimin-ceremony",
+    "title": "義民信仰 120 年：當香火遇上 AR 與青年市集",
+    "subtitle": "新竹枋寮義民廟．百二週年祭典",
+    "cover": "https://picsum.photos/seed/cur-yimin-cover/1600/900",
+    "category": "節慶",
+    "summary": "從清乾隆 53 年到 2026，義民廟 120 年大典如何用 AR 導覽與青年市集，把信仰留給下一代。",
+    "body": [
+      { "type": "paragraph", "content": "義民廟不只是廟，是客家庄精神支柱。120 週年的祭典中，廟方首次與在地青年合作，用 AR 導覽帶觀眾走入清代義民英烈的故事。" },
+      { "type": "image", "content": "https://picsum.photos/seed/cur-yimin-1/1200/700", "caption": "百二週年挑大豬大典" },
+      { "type": "paragraph", "content": "「我們把神豬尺寸縮小、改用環保替代品、增加青年市集，希望讓 30 歲以下的客家子弟願意回來。」廟方主委說。" }
+    ],
+    "relatedVideos": ["v04"],
+    "relatedProducts": [],
+    "relatedNews": ["n01"],
+    "tags": ["義民", "新竹", "節慶", "信仰"],
+    "status": "published",
+    "publishedAt": "2026-05-15T00:00:00+08:00",
+    "viewCount": 8412
+  },
+  {
+    "id": "c03",
+    "slug": "hakka-kitchen-stories",
+    "title": "暗夜裡的伙房故事：四道客家家常菜",
+    "subtitle": "夥房料理筆記．秋冬版",
+    "cover": "https://picsum.photos/seed/cur-kitchen-cover/1600/900",
+    "category": "飲食",
+    "summary": "從鹹豬肉、客家小炒、桔醬豬腳到擂茶，每一道菜都是客家家庭的暗夜儀式。",
+    "body": [
+      { "type": "heading", "content": "鹹豬肉：客家伙房的時間味" },
+      { "type": "paragraph", "content": "鹽巴、米酒、五香粉，把豬肉抹得均勻，封進陶甕醃漬一個月。時間是這道菜的另一個師傅。" },
+      { "type": "image", "content": "https://picsum.photos/seed/cur-kitchen-1/1200/700" }
+    ],
+    "relatedVideos": ["v05", "v10"],
+    "relatedProducts": ["p03", "p04"],
+    "relatedNews": ["n07"],
+    "tags": ["客家菜", "夥房", "家常"],
+    "status": "published",
+    "publishedAt": "2026-05-05T00:00:00+08:00",
+    "viewCount": 6210
+  },
+  {
+    "id": "c04",
+    "slug": "bopong-tree-night",
+    "title": "凌晨三點的伯公樹：客庄最寂靜的時刻",
+    "subtitle": "夜間散步攝影手記",
+    "cover": "https://picsum.photos/seed/cur-bopong-cover/1600/900",
+    "category": "節慶",
+    "summary": "攝影師連續 30 天在凌晨三點，記錄不同客家庄的伯公樹下的微光。",
+    "body": [
+      { "type": "paragraph", "content": "伯公（土地公）樹下，是客家庄精神的核心場所之一。攝影師連續 30 天的凌晨三點，記錄了不同客庄的伯公樹姿態。" },
+      { "type": "image", "content": "https://picsum.photos/seed/cur-bopong-1/1200/700" }
+    ],
+    "relatedVideos": ["v08", "v11"],
+    "relatedProducts": [],
+    "relatedNews": [],
+    "tags": ["伯公", "信仰", "夜"],
+    "status": "published",
+    "publishedAt": "2026-04-22T00:00:00+08:00",
+    "viewCount": 3210
+  },
+  {
+    "id": "c05",
+    "slug": "indigo-craft-guide",
+    "title": "藍染工藝的當代復興：從種植到衣櫃",
+    "subtitle": "三峽．美濃．客庄共學",
+    "cover": "https://picsum.photos/seed/cur-indigo-cover/1600/900",
+    "category": "工藝",
+    "summary": "從種大菁、踩布、染缸到成衣，新世代如何讓藍染走進現代衣櫃。",
+    "body": [
+      { "type": "paragraph", "content": "藍染不只是技藝，是一種與時間相處的方式。" },
+      { "type": "image", "content": "https://picsum.photos/seed/cur-indigo-1/1200/700" }
+    ],
+    "relatedVideos": ["v06", "v15"],
+    "relatedProducts": ["p05", "p06"],
+    "relatedNews": ["n05", "n25"],
+    "tags": ["藍染", "工藝", "永續"],
+    "status": "published",
+    "publishedAt": "2026-05-12T00:00:00+08:00",
+    "viewCount": 4520
+  },
+  {
+    "id": "c06",
+    "slug": "rice-noodle-journey",
+    "title": "粄條旅行：從客庄到老街的味道",
+    "subtitle": "美濃．竹田．新埔",
+    "cover": "https://picsum.photos/seed/cur-noodle-cover/1600/900",
+    "category": "飲食",
+    "summary": "三家客家粄條老店，三種代代相傳的湯頭祕方。",
+    "body": [
+      { "type": "paragraph", "content": "粄條是客家人的安慰食物，每家有每家的湯頭祕方。" }
+    ],
+    "relatedVideos": ["v10"],
+    "relatedProducts": ["p07"],
+    "relatedNews": ["n07"],
+    "tags": ["粄條", "美食", "老店"],
+    "status": "published",
+    "publishedAt": "2026-05-01T00:00:00+08:00",
+    "viewCount": 5810
+  },
+  {
+    "id": "c07",
+    "slug": "moon-festival-cake",
+    "title": "中秋的客家月餅：白糖糕與月光餅",
+    "subtitle": "節氣．飲食．家族",
+    "cover": "https://picsum.photos/seed/cur-moon-cover/1600/900",
+    "category": "節慶",
+    "summary": "客家月餅不是廣式月餅，是質樸的白糖糕與月光餅，是阿婆的中秋。",
+    "body": [
+      { "type": "paragraph", "content": "中秋節的客家庄，不買廣式月餅，而是回家自製白糖糕。" }
+    ],
+    "relatedVideos": ["v14"],
+    "relatedProducts": ["p08"],
+    "relatedNews": [],
+    "tags": ["中秋", "月餅", "節慶"],
+    "status": "published",
+    "publishedAt": "2025-09-08T00:00:00+08:00",
+    "viewCount": 3120
+  },
+  {
+    "id": "c08",
+    "slug": "lantern-festival-night",
+    "title": "百年龍燈：龍潭客庄的元宵夜",
+    "subtitle": "桃園龍潭．元宵特別企劃",
+    "cover": "https://picsum.photos/seed/cur-lantern-cover/1600/900",
+    "category": "節慶",
+    "summary": "桃園龍潭百年龍燈節，從紮龍頭、開光、繞境到夜間遶街的完整紀實。",
+    "body": [
+      { "type": "paragraph", "content": "龍燈不是只能看，要會懂。" }
+    ],
+    "relatedVideos": ["v22", "v09"],
+    "relatedProducts": [],
+    "relatedNews": [],
+    "tags": ["龍燈", "元宵", "龍潭"],
+    "status": "published",
+    "publishedAt": "2026-02-15T00:00:00+08:00",
+    "viewCount": 7320
+  },
+  {
+    "id": "c09",
+    "slug": "ginger-flower-meinong",
+    "title": "美濃白薑花的盛開季：女性勞動者的微縮史",
+    "subtitle": "高雄美濃．農村女性",
+    "cover": "https://picsum.photos/seed/cur-ginger-cover/1600/900",
+    "category": "旅遊",
+    "summary": "夏末的美濃白薑花田，藏著四代女性的勞動史。",
+    "body": [
+      { "type": "paragraph", "content": "薑花田裡的女性，從來不只是農婦。" }
+    ],
+    "relatedVideos": ["v12"],
+    "relatedProducts": ["p09"],
+    "relatedNews": ["n37"],
+    "tags": ["美濃", "白薑花", "女性"],
+    "status": "published",
+    "publishedAt": "2026-04-30T00:00:00+08:00",
+    "viewCount": 4032
+  },
+  {
+    "id": "c10",
+    "slug": "music-galaxy-hakka",
+    "title": "客家流行音樂的星河：從生祥到 9m88",
+    "subtitle": "音樂．創作．新世代",
+    "cover": "https://picsum.photos/seed/cur-music-cover/1600/900",
+    "category": "工藝",
+    "summary": "新世代客語創作者如何把客家八音、北管、月琴帶進當代流行音樂。",
+    "body": [
+      { "type": "paragraph", "content": "音樂是客家文化最容易跨界的入口。" }
+    ],
+    "relatedVideos": ["v07", "v17"],
+    "relatedProducts": [],
+    "relatedNews": ["n08", "n14"],
+    "tags": ["音樂", "流行", "創作"],
+    "status": "published",
+    "publishedAt": "2026-05-08T00:00:00+08:00",
+    "viewCount": 5821
+  },
+  {
+    "id": "c11",
+    "slug": "ancestors-house-revival",
+    "title": "祖屋的當代修復：從泥牆到大廳神桌",
+    "subtitle": "桃竹苗．古建築",
+    "cover": "https://picsum.photos/seed/cur-ancestors-cover/1600/900",
+    "category": "工藝",
+    "summary": "桃竹苗百年客家祖屋的修復實務筆記。",
+    "body": [
+      { "type": "paragraph", "content": "修復一間祖屋，需要的不只是預算，還有耐心。" }
+    ],
+    "relatedVideos": ["v16"],
+    "relatedProducts": [],
+    "relatedNews": [],
+    "tags": ["古蹟", "修復", "桃竹苗"],
+    "status": "published",
+    "publishedAt": "2025-11-30T00:00:00+08:00",
+    "viewCount": 2310
+  },
+  {
+    "id": "c12",
+    "slug": "global-hakka-diaspora",
+    "title": "全球客家：從矽谷到南洋的當代離散",
+    "subtitle": "全球．離散．認同",
+    "cover": "https://picsum.photos/seed/cur-global-cover/1600/900",
+    "category": "旅遊",
+    "summary": "三位海外客家青年的離散故事，談如何在英語職場守住客語身分。",
+    "body": [
+      { "type": "paragraph", "content": "離散不是失去，而是把客家文化帶到更遠的地方。" }
+    ],
+    "relatedVideos": ["v24"],
+    "relatedProducts": [],
+    "relatedNews": ["n35"],
+    "tags": ["全球", "離散", "青年"],
+    "status": "published",
+    "publishedAt": "2026-04-15T00:00:00+08:00",
+    "viewCount": 3210
+  }
+]

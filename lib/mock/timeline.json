@@ -1,0 +1,62 @@
+[
+  {
+    "time": "06:00",
+    "label": "晨光",
+    "description": "客家庄的早晨從晒穀場與菜園開始。",
+    "recommendations": [
+      { "id": "r-dawn-1", "type": "video", "refId": "v05", "title": "客家伙房 · 早餐版", "image": "https://picsum.photos/seed/dawn-kitchen/800/600", "caption": "晨起一碗鹹粄條" },
+      { "id": "r-dawn-2", "type": "curation", "refId": "c01", "title": "茶園採摘前的薄霧", "image": "https://picsum.photos/seed/dawn-tea/800/600", "caption": "東方美人茶的清晨" },
+      { "id": "r-dawn-3", "type": "news", "refId": "n03", "title": "茶外銷 Q1 新高", "image": "https://picsum.photos/seed/dawn-news/800/600", "caption": "晨報重點" }
+    ]
+  },
+  {
+    "time": "12:24",
+    "label": "日午",
+    "description": "高山雲海剛散開，午後的客庄一片靜謐。",
+    "recommendations": [
+      { "id": "r-noon-1", "type": "video", "refId": "v01", "title": "星雲下的黑潮島嶼", "image": "https://picsum.photos/seed/noon-drama/800/600", "caption": "本週話題劇集" },
+      { "id": "r-noon-2", "type": "curation", "refId": "c02", "title": "走進茶園的一場慢旅行", "image": "https://picsum.photos/seed/noon-curation/800/600", "caption": "本月策展" },
+      { "id": "r-noon-3", "type": "video", "refId": "v13", "title": "雷打不動的擂茶", "image": "https://picsum.photos/seed/noon-tea/800/600", "caption": "綜藝節氣" }
+    ]
+  },
+  {
+    "time": "15:00",
+    "label": "午後",
+    "description": "午後三點，伯公樹下的搖椅、阿婆的擂茶碗、孩子放學的歡聲。",
+    "recommendations": [
+      { "id": "r-aft-1", "type": "video", "refId": "v08", "title": "伯公樹下的孩子", "image": "https://picsum.photos/seed/aft-kids/800/600", "caption": "兒少節目" },
+      { "id": "r-aft-2", "type": "video", "refId": "v22", "title": "百年龍燈：客庄夜未眠", "image": "https://picsum.photos/seed/aft-dragon/800/600", "caption": "節慶實況" },
+      { "id": "r-aft-3", "type": "news", "refId": "n01", "title": "義民祭 120 週年", "image": "https://picsum.photos/seed/aft-news/800/600", "caption": "最新報導" }
+    ]
+  },
+  {
+    "time": "18:39",
+    "label": "暗夜",
+    "description": "夕陽剛落，客家庄的廚房升起炊煙，伙房裡開始準備晚餐。",
+    "recommendations": [
+      { "id": "r-dusk-1", "type": "video", "refId": "v09", "title": "燈籠師傅與他的兒子", "image": "https://picsum.photos/seed/dusk-lantern/800/600", "caption": "電影級單元劇" },
+      { "id": "r-dusk-2", "type": "video", "refId": "v02", "title": "茶山書簡", "image": "https://picsum.photos/seed/dusk-letters/800/600", "caption": "新一季登場" },
+      { "id": "r-dusk-3", "type": "curation", "refId": "c03", "title": "暗夜裡的伙房故事", "image": "https://picsum.photos/seed/dusk-curation/800/600", "caption": "本週推薦" }
+    ]
+  },
+  {
+    "time": "21:00",
+    "label": "夜深",
+    "description": "晚飯後的客家八音、慢轉的廣播、漸暗的廳堂。",
+    "recommendations": [
+      { "id": "r-night-1", "type": "video", "refId": "v07", "title": "客家八音的當代旅程", "image": "https://picsum.photos/seed/night-music/800/600", "caption": "深夜聆聽" },
+      { "id": "r-night-2", "type": "video", "refId": "v17", "title": "客家流行音樂的星空", "image": "https://picsum.photos/seed/night-pop/800/600", "caption": "現場演唱" },
+      { "id": "r-night-3", "type": "news", "refId": "n08", "title": "生祥樂隊獲金曲獎", "image": "https://picsum.photos/seed/night-news/800/600", "caption": "音樂頭條" }
+    ]
+  },
+  {
+    "time": "03:00",
+    "label": "凌晨",
+    "description": "客庄最寂靜的時刻，伯公樹下、夥房瓦上、田埂遠處的犬吠。",
+    "recommendations": [
+      { "id": "r-pre-1", "type": "video", "refId": "v23", "title": "靜默的客家河", "image": "https://picsum.photos/seed/pre-river/800/600", "caption": "夜行紀錄片" },
+      { "id": "r-pre-2", "type": "video", "refId": "v11", "title": "稜線上的行走日記", "image": "https://picsum.photos/seed/pre-trail/800/600", "caption": "山岳節目" },
+      { "id": "r-pre-3", "type": "curation", "refId": "c04", "title": "凌晨三點的伯公樹", "image": "https://picsum.photos/seed/pre-tree/800/600", "caption": "原創長文" }
+    ]
+  }
+]
