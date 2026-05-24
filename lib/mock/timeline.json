@@ -1,8 +1,8 @@
 [
   {
     "time": "06:00",
-    "label": "晨光",
-    "description": "客家庄的早晨從晒穀場與菜園開始。",
+    "label": "朝晨",
+    "description": "客家庄的清晨從晒穀場與菜園開始。",
     "recommendations": [
       { "id": "r-dawn-1", "type": "video", "refId": "v05", "title": "客家伙房 · 早餐版", "image": "https://picsum.photos/seed/dawn-kitchen/800/600", "caption": "晨起一碗鹹粄條" },
       { "id": "r-dawn-2", "type": "curation", "refId": "c01", "title": "茶園採摘前的薄霧", "image": "https://picsum.photos/seed/dawn-tea/800/600", "caption": "東方美人茶的清晨" },
@@ -11,7 +11,7 @@
   },
   {
     "time": "12:24",
-    "label": "日午",
+    "label": "當晝",
     "description": "高山雲海剛散開，午後的客庄一片靜謐。",
     "recommendations": [
       { "id": "r-noon-1", "type": "video", "refId": "v01", "title": "星雲下的黑潮島嶼", "image": "https://picsum.photos/seed/noon-drama/800/600", "caption": "本週話題劇集" },
@@ -21,7 +21,7 @@
   },
   {
     "time": "15:00",
-    "label": "午後",
+    "label": "晝邊",
     "description": "午後三點，伯公樹下的搖椅、阿婆的擂茶碗、孩子放學的歡聲。",
     "recommendations": [
       { "id": "r-aft-1", "type": "video", "refId": "v08", "title": "伯公樹下的孩子", "image": "https://picsum.photos/seed/aft-kids/800/600", "caption": "兒少節目" },
@@ -31,7 +31,7 @@
   },
   {
     "time": "18:39",
-    "label": "暗夜",
+    "label": "暗哺",
     "description": "夕陽剛落，客家庄的廚房升起炊煙，伙房裡開始準備晚餐。",
     "recommendations": [
       { "id": "r-dusk-1", "type": "video", "refId": "v09", "title": "燈籠師傅與他的兒子", "image": "https://picsum.photos/seed/dusk-lantern/800/600", "caption": "電影級單元劇" },
@@ -41,7 +41,7 @@
   },
   {
     "time": "21:00",
-    "label": "夜深",
+    "label": "暗夜",
     "description": "晚飯後的客家八音、慢轉的廣播、漸暗的廳堂。",
     "recommendations": [
       { "id": "r-night-1", "type": "video", "refId": "v07", "title": "客家八音的當代旅程", "image": "https://picsum.photos/seed/night-music/800/600", "caption": "深夜聆聽" },
@@ -51,7 +51,7 @@
   },
   {
     "time": "03:00",
-    "label": "凌晨",
+    "label": "夜深",
     "description": "客庄最寂靜的時刻，伯公樹下、夥房瓦上、田埂遠處的犬吠。",
     "recommendations": [
       { "id": "r-pre-1", "type": "video", "refId": "v23", "title": "靜默的客家河", "image": "https://picsum.photos/seed/pre-river/800/600", "caption": "夜行紀錄片" },

@@ -78,6 +78,11 @@ export function CardVideo({ video, variant = "portrait", className }: Props) {
           </p>
         )}
       </div>
+      {/* Green corner brackets on hover — cinematic focus effect */}
+      <span className="pointer-events-none absolute top-2 left-2 w-4 h-4 border-l-2 border-t-2 border-accent rounded-tl opacity-0 group-hover:opacity-100 transition-opacity" />
+      <span className="pointer-events-none absolute top-2 right-2 w-4 h-4 border-r-2 border-t-2 border-accent rounded-tr opacity-0 group-hover:opacity-100 transition-opacity" />
+      <span className="pointer-events-none absolute bottom-2 left-2 w-4 h-4 border-l-2 border-b-2 border-accent rounded-bl opacity-0 group-hover:opacity-100 transition-opacity" />
+      <span className="pointer-events-none absolute bottom-2 right-2 w-4 h-4 border-r-2 border-b-2 border-accent rounded-br opacity-0 group-hover:opacity-100 transition-opacity" />
     </Link>
   );
 }

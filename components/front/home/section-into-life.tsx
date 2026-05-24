@@ -18,11 +18,11 @@ export function SectionIntoLife() {
           <div className="absolute -bottom-20 -right-20 size-60 rounded-full bg-accent/15 blur-3xl pointer-events-none" />
 
           <div className="grid lg:grid-cols-12 gap-0">
-            {/* Left: HAKKA LIFE white circle badge + vertical tag list */}
+            {/* Left: HAKKA LIFE white solid circle badge + vertical tag list */}
             <div className="lg:col-span-4 p-6 lg:p-10 flex flex-col items-center lg:items-start justify-center gap-6 relative">
-              <div className="size-32 lg:size-44 rounded-full bg-text-primary text-text-inverse flex flex-col items-center justify-center font-display font-extrabold leading-tight">
-                <span className="text-xl lg:text-3xl">HAKKA</span>
-                <span className="text-xl lg:text-3xl">LIFE</span>
+              <div className="size-32 lg:size-44 rounded-full bg-white text-[#0a0f0d] flex flex-col items-center justify-center font-display font-extrabold leading-tight shadow-[0_0_60px_-12px_rgba(255,255,255,0.4)]">
+                <span className="text-xl lg:text-3xl tracking-tight">HAKKA</span>
+                <span className="text-xl lg:text-3xl tracking-tight">LIFE</span>
               </div>
               <ul className="space-y-1.5 lg:space-y-2 text-text-secondary text-sm lg:text-base">
                 <li className="inline-flex items-center gap-2"><span className="text-accent">#</span> 旅遊探索</li>
