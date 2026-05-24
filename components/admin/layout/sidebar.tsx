@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { ADMIN_NAV, type AdminNavItem } from "@/lib/nav";
+import { HakkaLogo } from "@/components/front/layout/logo";
 import { cn } from "@/lib/utils";
 
 export function AdminSidebar() {
@@ -13,9 +14,10 @@ export function AdminSidebar() {
   return (
     <aside className="hidden lg:block w-64 shrink-0 border-r border-border bg-bg-elevated/60">
       <div className="sticky top-0 h-screen overflow-y-auto scroll-pretty">
-        <div className="px-5 h-16 flex items-center border-b border-border">
-          <Link href="/admin" className="font-display text-xl font-extrabold text-text-primary">
-            客+ <span className="text-accent">Admin</span>
+        <div className="px-5 h-16 flex items-center border-b border-border gap-2">
+          <Link href="/admin" className="inline-flex items-center gap-2">
+            <HakkaLogo size="sm" invert />
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-accent-soft text-accent">Admin</span>
           </Link>
         </div>
         <nav className="p-3 flex flex-col gap-0.5">

@@ -40,8 +40,8 @@ export function Header() {
     >
       <div className="mx-auto max-w-screen-2xl px-4 lg:px-8 h-14 lg:h-16 flex items-center justify-between">
         {/* LEFT — Logo only (matches design spec: white ring + tung flower + HakkaTV wordmark) */}
-        <Link href="/" className="shrink-0 text-text-primary">
-          <HakkaLogo size={senior ? "lg" : "md"} />
+        <Link href="/" className="shrink-0">
+          <HakkaLogo size={senior ? "lg" : "md"} invert={senior} />
         </Link>
 
         {/* RIGHT — minimal icons only (moon, menu) */}

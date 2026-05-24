@@ -12,12 +12,26 @@ import { cn } from "@/lib/utils";
 
 // 客語時段詞彙（設計稿明確指定）
 const HAKKA_SLOTS = [
-  { hour: 5, label: "朝晨", description: "客家庄的清晨從晒穀場與菜園開始。", english: "Dawn" },
-  { hour: 11, label: "當晝", description: "高山雲海剛散開，午後的客庄一片靜謐。", english: "Midday" },
-  { hour: 14, label: "晝邊", description: "午後三點，伯公樹下的搖椅、阿婆的擂茶碗。", english: "Afternoon" },
-  { hour: 17, label: "暗哺", description: "夕陽剛落，客家庄的廚房升起炊煙。", english: "Dusk" },
-  { hour: 20, label: "暗夜", description: "晚飯後的客家八音、慢轉的廣播、漸暗的廳堂。", english: "Night" },
-  { hour: 23, label: "夜深", description: "客庄最寂靜的時刻，伯公樹下、田埂遠處的犬吠。", english: "Late Night" },
+  { hour: 5, label: "朝晨", description: "客家庄的清晨從晒穀場與菜園開始。", english: "Dawn",
+    /** 時段背景漸層 — 清晨柔光金黃 */
+    glow: "radial-gradient(circle at 70% 30%, rgba(255,200,120,0.18), transparent 60%), linear-gradient(180deg, #1a1a14 0%, #0a0f0d 100%)",
+    halo: "rgba(255,200,120,0.3)" },
+  { hour: 11, label: "當晝", description: "高山雲海剛散開，午後的客庄一片靜謐。", english: "Midday",
+    glow: "radial-gradient(circle at 50% 30%, rgba(180,220,255,0.12), transparent 60%), linear-gradient(180deg, #0a1922 0%, #0a0f0d 100%)",
+    halo: "rgba(180,220,255,0.25)" },
+  { hour: 14, label: "晝邊", description: "午後三點，伯公樹下的搖椅、阿婆的擂茶碗。", english: "Afternoon",
+    glow: "radial-gradient(circle at 30% 50%, rgba(0,255,148,0.10), transparent 60%), linear-gradient(180deg, #0a1922 0%, #0a0f0d 100%)",
+    halo: "rgba(0,255,148,0.2)" },
+  { hour: 17, label: "暗哺", description: "夕陽剛落，客家庄的廚房升起炊煙。", english: "Dusk",
+    /** 暗哺時段最有戲：橙紅落日漸層 */
+    glow: "radial-gradient(circle at 80% 80%, rgba(255,120,60,0.30), transparent 50%), radial-gradient(circle at 20% 30%, rgba(220,80,40,0.20), transparent 60%), linear-gradient(180deg, #1a0d08 0%, #0a0a0d 100%)",
+    halo: "rgba(255,120,60,0.4)" },
+  { hour: 20, label: "暗夜", description: "晚飯後的客家八音、慢轉的廣播、漸暗的廳堂。", english: "Night",
+    glow: "radial-gradient(circle at 50% 20%, rgba(120,80,180,0.18), transparent 60%), linear-gradient(180deg, #0d0a18 0%, #060906 100%)",
+    halo: "rgba(120,80,180,0.3)" },
+  { hour: 23, label: "夜深", description: "客庄最寂靜的時刻，伯公樹下、田埂遠處的犬吠。", english: "Late Night",
+    glow: "radial-gradient(circle at 50% 40%, rgba(40,60,90,0.20), transparent 60%), linear-gradient(180deg, #060c12 0%, #060906 100%)",
+    halo: "rgba(40,60,90,0.25)" },
 ];
 
 function currentSlotLabel(hour: number) {
@@ -105,11 +119,24 @@ export function HeroStack() {
           </button>
         </div>
 
-        {/* === 24hr Clock band: separate dark blue gradient card === */}
-        <div className="mt-10 lg:mt-14 relative overflow-hidden rounded-2xl lg:rounded-3xl border border-border-strong">
-          {/* Blue gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a1922] via-[#0a0f0d] to-[#162028] pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(0,255,148,0.08),transparent_60%)] pointer-events-none" />
+        {/* === 24hr Clock band: separate dark gradient card with time-of-day mood === */}
+        <motion.div
+          key={slot.label}
+          initial={{ opacity: 0.7 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
+          className="mt-10 lg:mt-14 relative overflow-hidden rounded-2xl lg:rounded-3xl border border-border-strong"
+        >
+          {/* Time-of-day mood gradient — changes with slot */}
+          <div
+            className="absolute inset-0 pointer-events-none transition-all duration-1000"
+            style={{ background: slot.glow }}
+          />
+          {/* Subtle horizon line at the bottom (cinematic) */}
+          <div
+            className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
+            style={{ background: `linear-gradient(to top, ${slot.halo}, transparent)` }}
+          />
 
           <div className="relative grid lg:grid-cols-12 gap-6 lg:gap-8 p-6 sm:p-8 lg:p-12">
             {/* Left: big clock */}
@@ -170,7 +197,7 @@ export function HeroStack() {
               </ul>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

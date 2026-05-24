@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/lib/store/auth";
 import { useUi } from "@/lib/store/ui";
+import { HakkaLogo } from "@/components/front/layout/logo";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -25,10 +26,11 @@ export default function AdminLoginPage() {
     <div className="min-h-screen flex items-center justify-center px-6 py-12 bg-bg-base">
       <div className="w-full max-w-md card p-8 space-y-6">
         <div>
-          <div className="font-display text-3xl font-extrabold text-text-primary">
-            客+ <span className="text-accent">Admin</span>
+          <div className="flex items-center gap-2">
+            <HakkaLogo size="lg" />
+            <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-accent-soft text-accent">Admin</span>
           </div>
-          <p className="mt-2 text-sm text-text-secondary">
+          <p className="mt-3 text-sm text-text-secondary">
             POC 階段假登入 — 隨便輸入 email 與密碼即可進入後台。
           </p>
         </div>
