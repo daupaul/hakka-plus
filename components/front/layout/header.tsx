@@ -6,6 +6,7 @@ import { Moon, Sun, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { useSeniorMode } from "@/lib/store/senior-mode";
 import { useUi } from "@/lib/store/ui";
+import { HakkaLogo } from "./logo";
 import { cn } from "@/lib/utils";
 
 const MOBILE_NAV = [
@@ -38,16 +39,9 @@ export function Header() {
       )}
     >
       <div className="mx-auto max-w-screen-2xl px-4 lg:px-8 h-14 lg:h-16 flex items-center justify-between">
-        {/* LEFT — Logo only */}
-        <Link href="/" className="flex items-center gap-1.5 shrink-0">
-          <span className="inline-flex items-center justify-center size-6 lg:size-7 rounded-full bg-accent">
-            <svg viewBox="0 0 20 20" className="size-3.5 lg:size-4 text-text-inverse" fill="currentColor">
-              <circle cx="10" cy="10" r="4" />
-            </svg>
-          </span>
-          <span className={cn("font-display font-extrabold tracking-tight text-text-primary italic", senior ? "text-base" : "text-sm lg:text-base")}>
-            HakkaTV
-          </span>
+        {/* LEFT — Logo only (matches design spec: white ring + tung flower + HakkaTV wordmark) */}
+        <Link href="/" className="shrink-0 text-text-primary">
+          <HakkaLogo size={senior ? "lg" : "md"} />
         </Link>
 
         {/* RIGHT — minimal icons only (moon, menu) */}
