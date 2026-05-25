@@ -1,10 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useContent } from "@/lib/store/content";
 
 /**
  * Style A 24hr 客語時段 Timeline — direct port of
  * /Users/paul/Downloads/Hakka_/components/TimelineSignature.jsx
+ *
+ * 顯示資料（label / description / 右側推薦清單）來自 Zustand store，
+ * 後台 /admin/timeline 任何修改即時反映；MOODS 的 hour→mood mapping 仍
+ * hardcoded（不開放從後台改 24hr 對應規則）。
  */
 
 const MOODS = [
@@ -16,17 +21,17 @@ const MOODS = [
   { id: "ye-shen",   label: "夜深", en: "Deep Night",  hours: [23, 0, 1, 2, 3, 4] },
 ];
 
-const PROGRAMS = [
-  { kind: "戲劇",   date: "FEB 5, 2026", title: "可可樹下的奇幻小店 — 展開奇幻冒險",   img: "https://images.unsplash.com/photo-1485846234645-a62644f84728?w=400&q=80" },
-  { kind: "綜藝",   date: "FEB 5, 2026", title: "鬧熱打擂台 — 第八屆客家流行音樂大賽", img: "https://images.unsplash.com/photo-1493676304819-0d7a8d026dcf?w=400&q=80" },
-  { kind: "紀錄片", date: "FEB 5, 2026", title: "客家樂事 — 一日客庄滿月圓",          img: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?w=400&q=80" },
-  { kind: "新聞",   date: "FEB 5, 2026", title: "客家新聞雜誌 — 山林裡的茶人",         img: "https://images.unsplash.com/photo-1564507592333-c60657eea523?w=400&q=80" },
-  { kind: "兒少",   date: "FEB 5, 2026", title: "尤咕尤咕咕 — 找回失落的客語童謠",      img: "https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=80" },
-];
+const TYPE_LABEL: Record<string, string> = {
+  video: "戲劇",
+  curation: "策展",
+  news: "新聞",
+  product: "選物",
+};
 
 export function TimelineSignature() {
   const [now, setNow] = useState<Date | null>(null);
   const [forcedHour, setForcedHour] = useState<number | null>(null);
+  const timeline = useContent((s) => s.timeline);
 
   useEffect(() => {
     const tick = () => setNow(new Date());
@@ -38,13 +43,20 @@ export function TimelineSignature() {
   const hour = forcedHour ?? now?.getHours() ?? 12;
   const minute = now?.getMinutes() ?? 0;
   const currentMood = useMemo(() => MOODS.find((m) => m.hours.includes(hour)) ?? MOODS[2], [hour]);
+  // 用 label 把 MOOD 對應到後台 store 的 TimeSlot（後台改 label / description / 推薦清單即時反映）
+  const slot = useMemo(
+    () => timeline.find((t) => t.label === currentMood.label),
+    [timeline, currentMood],
+  );
+  const moodLabel = slot?.label ?? currentMood.label;
+  const recommendations = slot?.recommendations ?? [];
 
   if (!now) return <section className="ts-section" />;
 
   const hh = String(hour).padStart(2, "0");
   const mm = String(minute).padStart(2, "0");
   const moodIdx = MOODS.indexOf(currentMood);
-  const playingIdx = hour % PROGRAMS.length;
+  const playingIdx = recommendations.length > 0 ? hour % recommendations.length : 0;
 
   const cycleMood = (delta: number) => {
     const next = MOODS[(moodIdx + delta + MOODS.length) % MOODS.length];
@@ -74,10 +86,13 @@ export function TimelineSignature() {
             </div>
 
             <div className="ts-mood-label">
-              <div className="ts-mood-cn">{currentMood.label}</div>
+              <div className="ts-mood-cn">{moodLabel}</div>
               <div className="ts-mood-en">
                 {currentMood.en.toUpperCase()} · {currentMood.hours[0]}:00 — {(currentMood.hours[currentMood.hours.length - 1] + 1) % 24}:00
               </div>
+              {slot?.description ? (
+                <div className="ts-mood-desc">{slot.description}</div>
+              ) : null}
             </div>
 
             <div className="ts-mood-pips" role="tablist" aria-label="客語時段切換">
@@ -115,30 +130,34 @@ export function TimelineSignature() {
               <span className="ts-on-air">
                 <span className="ts-on-air-dot" /> ON AIR · CH 17
               </span>
-              <span className="ts-right-meta">{currentMood.label}時段節目</span>
+              <span className="ts-right-meta">{moodLabel}時段推薦</span>
             </div>
             <ul className="ts-list">
-              {PROGRAMS.map((p, i) => (
-                <li key={i} className={`ts-item ${i === playingIdx ? "is-playing" : ""}`}>
-                  <div className="ts-item-thumb">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.img} alt="" />
-                    {i === playingIdx && (
-                      <span className="ts-item-now">
-                        <span className="ts-now-dot" /> NOW
-                      </span>
-                    )}
-                  </div>
-                  <div className="ts-item-meta">
-                    <div className="ts-item-tag">
-                      <span className="ts-item-kind">{p.kind}</span>
-                      <span className="ts-item-bullet">·</span>
-                      <span className="ts-item-date">{p.date}</span>
+              {recommendations.length === 0 ? (
+                <li className="ts-item-empty">此時段尚未編排內容</li>
+              ) : (
+                recommendations.map((r, i) => (
+                  <li key={r.id} className={`ts-item ${i === playingIdx ? "is-playing" : ""}`}>
+                    <div className="ts-item-thumb">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={r.image} alt="" />
+                      {i === playingIdx && (
+                        <span className="ts-item-now">
+                          <span className="ts-now-dot" /> NOW
+                        </span>
+                      )}
                     </div>
-                    <div className="ts-item-title">{p.title}</div>
-                  </div>
-                </li>
-              ))}
+                    <div className="ts-item-meta">
+                      <div className="ts-item-tag">
+                        <span className="ts-item-kind">{TYPE_LABEL[r.type] ?? r.type}</span>
+                        <span className="ts-item-bullet">·</span>
+                        <span className="ts-item-date">{r.caption}</span>
+                      </div>
+                      <div className="ts-item-title">{r.title}</div>
+                    </div>
+                  </li>
+                ))
+              )}
             </ul>
           </div>
         </div>
@@ -170,6 +189,8 @@ export function TimelineSignature() {
         .ts-mood-label { display: flex; flex-direction: column; gap: 6px; }
         .ts-mood-cn { font-family: var(--font-mono); font-weight: 500; font-size: calc(36px * var(--type-scale)); letter-spacing: 0.15em; color: #fff; }
         .ts-mood-en { font-family: var(--font-mono); font-size: calc(13px * var(--type-scale)); letter-spacing: 0.16em; color: rgba(255,255,255,0.55); }
+        .ts-mood-desc { font-family: var(--font-cn); font-size: calc(14px * var(--type-scale)); line-height: 1.55; color: rgba(255,255,255,0.78); max-width: 480px; margin-top: 6px; }
+        .ts-item-empty { padding: 24px 0; color: rgba(255,255,255,0.5); font-family: var(--font-cn); }
         .ts-mood-pips { display: flex; gap: 4px; margin-top: 4px; flex-wrap: wrap; }
         .ts-pip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px 8px 10px; min-height: var(--tap-min); background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 999px; font-family: var(--font-mono); font-size: calc(13px * var(--type-scale)); color: rgba(255,255,255,0.6); transition: all var(--dur-fast) ease; cursor: pointer; }
         .ts-pip-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.3); }
