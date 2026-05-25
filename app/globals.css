@@ -55,3 +55,17 @@
   --tap-min: 48px;
   --line-mult: 1.4;
 }
+
+/* Shared atom — round mint nav button */
+.circle-nav {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  background: rgba(83,225,161,0.2);
+  color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: all var(--dur-fast) ease;
+  border: 0;
+  cursor: pointer;
+}
+.circle-nav:hover { background: var(--accent-mint); color: rgb(8,20,16); }
+@media (max-width: 900px) { .circle-nav { width: 48px; height: 48px; } }
