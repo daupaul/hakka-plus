@@ -1,305 +1,144 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Play, Plus, ChevronLeft, ChevronRight, Radio } from "lucide-react";
 import { useContent } from "@/lib/store/content";
-import type { Video } from "@/lib/types";
-import { ClockDisplay } from "@/components/ui/clock-display";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 
-// 客語時段詞彙（設計稿明確指定）
-const HAKKA_SLOTS = [
-  { hour: 5, label: "朝晨", description: "客家庄的清晨從晒穀場與菜園開始。", english: "Dawn",
-    /** 時段背景漸層 — 清晨柔光金黃 */
-    glow: "radial-gradient(circle at 70% 30%, rgba(255,200,120,0.18), transparent 60%), linear-gradient(180deg, #1a1a14 0%, #0a0f0d 100%)",
-    halo: "rgba(255,200,120,0.3)" },
-  { hour: 11, label: "當晝", description: "高山雲海剛散開，午後的客庄一片靜謐。", english: "Midday",
-    glow: "radial-gradient(circle at 50% 30%, rgba(180,220,255,0.12), transparent 60%), linear-gradient(180deg, #0a1922 0%, #0a0f0d 100%)",
-    halo: "rgba(180,220,255,0.25)" },
-  { hour: 14, label: "晝邊", description: "午後三點，伯公樹下的搖椅、阿婆的擂茶碗。", english: "Afternoon",
-    glow: "radial-gradient(circle at 30% 50%, rgba(0,255,148,0.10), transparent 60%), linear-gradient(180deg, #0a1922 0%, #0a0f0d 100%)",
-    halo: "rgba(0,255,148,0.2)" },
-  { hour: 17, label: "暗哺", description: "夕陽剛落，客家庄的廚房升起炊煙。", english: "Dusk",
-    /** 暗哺時段最有戲：橙紅落日漸層 */
-    glow: "radial-gradient(circle at 80% 80%, rgba(255,120,60,0.30), transparent 50%), radial-gradient(circle at 20% 30%, rgba(220,80,40,0.20), transparent 60%), linear-gradient(180deg, #1a0d08 0%, #0a0a0d 100%)",
-    halo: "rgba(255,120,60,0.4)" },
-  { hour: 20, label: "暗夜", description: "晚飯後的客家八音、慢轉的廣播、漸暗的廳堂。", english: "Night",
-    glow: "radial-gradient(circle at 50% 20%, rgba(120,80,180,0.18), transparent 60%), linear-gradient(180deg, #0d0a18 0%, #060906 100%)",
-    halo: "rgba(120,80,180,0.3)" },
-  { hour: 23, label: "夜深", description: "客庄最寂靜的時刻，伯公樹下、田埂遠處的犬吠。", english: "Late Night",
-    glow: "radial-gradient(circle at 50% 40%, rgba(40,60,90,0.20), transparent 60%), linear-gradient(180deg, #060c12 0%, #060906 100%)",
-    halo: "rgba(40,60,90,0.25)" },
-];
-
-function currentSlotLabel(hour: number) {
-  if (hour >= 5 && hour < 11) return HAKKA_SLOTS[0];
-  if (hour >= 11 && hour < 14) return HAKKA_SLOTS[1];
-  if (hour >= 14 && hour < 17) return HAKKA_SLOTS[2];
-  if (hour >= 17 && hour < 20) return HAKKA_SLOTS[3];
-  if (hour >= 20 && hour < 23) return HAKKA_SLOTS[4];
-  return HAKKA_SLOTS[5];
-}
-
+/**
+ * Style A Hero — 3-card row with center mint-bordered poster.
+ * Direct port of /Users/paul/Downloads/Hakka_/components/Hero.jsx
+ */
 export function HeroStack() {
   const videos = useContent((s) => s.videos);
-  const featured = videos.filter((v) => v.featured).slice(0, 3);
-  const stackList = videos.slice(3, 8);
 
-  const [time, setTime] = useState({ hhmm: "12:24", ss: "00", date: "5月 22 日" });
-  const [now, setNow] = useState<Date>(new Date(2026, 4, 24, 12, 24, 0));
+  // Synthesize 3 hero slides from featured videos.
+  const heroData = (() => {
+    const feat = videos.filter((v) => v.featured).slice(0, 3);
+    if (feat.length === 0) return [];
+    while (feat.length < 3) feat.push(feat[0]);
+    return feat.map((v, i) => ({
+      id: `h-${v.id}`,
+      title: v.title,
+      en: v.titleEn ?? v.title,
+      img: v.hero,
+      kind: v.category,
+      ep: `共 ${v.episodeCount} 集`,
+      slug: v.slug,
+      featured: i === 1,
+    }));
+  })();
+
+  const [idx, setIdx] = useState(1);
+  const total = heroData.length;
 
   useEffect(() => {
-    const tick = () => {
-      const d = new Date();
-      setNow(d);
-      setTime({
-        hhmm: `${pad(d.getHours())}:${pad(d.getMinutes())}`,
-        ss: pad(d.getSeconds()),
-        date: `${d.getMonth() + 1}月 ${d.getDate()} 日`,
-      });
-    };
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, []);
+    if (total === 0) return;
+    const t = setInterval(() => setIdx((i) => (i + 1) % total), 8000);
+    return () => clearInterval(t);
+  }, [total]);
 
-  const slot = currentSlotLabel(now.getHours());
+  if (heroData.length === 0) return null;
 
-  if (featured.length === 0) return null;
+  const goPrev = () => setIdx((i) => (i - 1 + total) % total);
+  const goNext = () => setIdx((i) => (i + 1) % total);
 
-  const [left, center, right] = [
-    featured[0],
-    featured[1] ?? featured[0],
-    featured[2] ?? featured[0],
-  ];
+  const featured = heroData[idx];
+  const prev = heroData[(idx - 1 + total) % total];
+  const next = heroData[(idx + 1) % total];
 
   return (
-    <section className="relative pt-4 sm:pt-8 lg:pt-12 pb-10 lg:pb-14">
-      <div className="mx-auto max-w-screen-2xl px-4 sm:px-6 lg:px-12">
-        {/* === HERO 3-card carousel === */}
-        <div className="relative">
-          {/* Desktop: 3 cards horizontal with center prominent */}
-          <div className="hidden sm:grid grid-cols-[1fr_1.8fr_1fr] lg:grid-cols-[1fr_2fr_1fr] gap-2 lg:gap-4 items-center">
-            <HeroSideCard video={left} side="left" />
-            <HeroCenterCard video={center} />
-            <HeroSideCard video={right} side="right" />
-          </div>
+    <section className="hero-section" aria-label="精選首播">
+      <div className="hero-bg-tint" key={featured.id} />
 
-          {/* Mobile: single card */}
-          <div className="sm:hidden max-w-sm mx-auto">
-            <HeroCenterCard video={center} />
-          </div>
+      <div className="hero-stage">
+        <button className="hero-side hero-side-prev" onClick={goPrev} aria-label={`上一部 — ${prev.title}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={prev.img} alt="" />
+          <span className="hero-side-tag">{prev.kind}</span>
+          <span className="hero-side-title">{prev.title}</span>
+        </button>
 
-          {/* Metadata row under center card (mockup: date + live indicator + 收藏) */}
-          <div className="mt-3 lg:mt-4 grid grid-cols-1 sm:grid-cols-[1fr_1.8fr_1fr] lg:grid-cols-[1fr_2fr_1fr] gap-2 lg:gap-4">
-            <div className="hidden sm:block" />
-            <div className="flex items-center justify-center gap-2 sm:gap-3 text-[10px] sm:text-xs lg:text-sm text-text-secondary flex-wrap">
-              <span className="text-text-muted">{time.date}</span>
-              <span className="opacity-30">/</span>
-              <span className="text-text-muted">{slot.label}</span>
-              <span className="opacity-30">/</span>
-              <span className="font-mono text-text-primary">GMT+8 {time.hhmm}:{time.ss}</span>
-              <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-accent/15 text-accent ml-1">
-                <Radio className="size-2.5 animate-pulse" />
-                <span className="text-[10px] font-bold">LIVE</span>
-              </span>
+        <div className="hero-center" key={featured.id}>
+          <Link href={`/watch/${featured.slug}`} className="hero-poster">
+            <span className="hero-poster-tag">{featured.kind}</span>
+            <h1 className="hero-poster-title">{featured.title}</h1>
+            <div className="hero-poster-en">{featured.en}</div>
+
+            <div className="hero-poster-thumb">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={featured.img} alt="" />
+              <div className="hero-poster-thumb-grad" />
             </div>
-            <div className="hidden sm:block" />
-          </div>
 
-          {/* Carousel arrows — only visible on desktop */}
-          <button className="hidden lg:flex absolute -left-2 top-1/2 -translate-y-1/2 size-10 rounded-full bg-bg-elevated/80 backdrop-blur-md border border-border text-text-secondary hover:text-accent hover:border-accent items-center justify-center transition-colors">
-            <ChevronLeft className="size-5" />
-          </button>
-          <button className="hidden lg:flex absolute -right-2 top-1/2 -translate-y-1/2 size-10 rounded-full bg-bg-elevated/80 backdrop-blur-md border border-border text-text-secondary hover:text-accent hover:border-accent items-center justify-center transition-colors">
-            <ChevronRight className="size-5" />
-          </button>
+            <span className="hero-poster-play" aria-label={`播放 ${featured.title}`}>
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="currentColor" aria-hidden="true">
+                <path d="M11 8l14 8-14 8V8z" />
+              </svg>
+            </span>
+          </Link>
         </div>
 
-        {/* === 24hr Clock band: separate dark gradient card with time-of-day mood === */}
-        <motion.div
-          key={slot.label}
-          initial={{ opacity: 0.7 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
-          className="mt-10 lg:mt-14 relative overflow-hidden rounded-2xl lg:rounded-3xl border border-border-strong"
-        >
-          {/* Time-of-day mood gradient — changes with slot */}
-          <div
-            className="absolute inset-0 pointer-events-none transition-all duration-1000"
-            style={{ background: slot.glow }}
-          />
-          {/* Subtle horizon line at the bottom (cinematic) */}
-          <div
-            className="absolute inset-x-0 bottom-0 h-24 pointer-events-none"
-            style={{ background: `linear-gradient(to top, ${slot.halo}, transparent)` }}
-          />
-
-          <div className="relative grid lg:grid-cols-12 gap-6 lg:gap-8 p-6 sm:p-8 lg:p-12">
-            {/* Left: big clock */}
-            <div className="lg:col-span-7">
-              <div className="flex items-baseline gap-3 lg:gap-5">
-                <ClockDisplay time={time.hhmm} label={slot.label} size="xl" />
-                <span className="hidden sm:inline clock-numerals text-text-muted text-xl lg:text-3xl mb-3 lg:mb-6">:{time.ss}</span>
-              </div>
-              <p className="mt-6 text-text-secondary text-sm lg:text-base max-w-md leading-relaxed">{slot.description}</p>
-              <div className="mt-6 flex items-center gap-2">
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center size-10 lg:size-12 rounded-full bg-accent text-text-inverse hover:scale-105 transition-transform"
-                  aria-label="現在播放"
-                >
-                  <Play className="size-4 lg:size-5 ml-0.5" fill="currentColor" />
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center size-10 lg:size-12 rounded-full border border-border-strong text-text-secondary hover:border-accent hover:text-accent transition-colors"
-                  aria-label="上一個時段"
-                >
-                  <ChevronLeft className="size-4 lg:size-5" />
-                </button>
-                <button
-                  type="button"
-                  className="inline-flex items-center justify-center size-10 lg:size-12 rounded-full border border-border-strong text-text-secondary hover:border-accent hover:text-accent transition-colors"
-                  aria-label="下一個時段"
-                >
-                  <ChevronRight className="size-4 lg:size-5" />
-                </button>
-              </div>
-            </div>
-
-            {/* Right: vertical card stack */}
-            <div className="lg:col-span-5">
-              <div className="text-[10px] uppercase tracking-[0.18em] text-text-muted mb-3 px-1">尚未公開的相見</div>
-              <ul className="space-y-2 lg:space-y-2.5">
-                {stackList.map((v) => (
-                  <li key={v.id}>
-                    <Link
-                      href={`/watch/${v.slug}`}
-                      className="group flex items-center gap-3 card p-2 lg:p-2.5 bg-bg-elevated/60 hover:border-accent transition-colors"
-                    >
-                      <div className="relative w-20 sm:w-24 aspect-video shrink-0 overflow-hidden rounded-md bg-bg-deep">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={v.hero} alt={v.title} loading="lazy" className="size-full object-cover" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="text-[10px] text-text-muted uppercase tracking-wide">{v.category}</div>
-                        <div className="mt-0.5 text-sm font-semibold text-text-primary line-clamp-2 group-hover:text-accent transition-colors">
-                          {v.title}
-                        </div>
-                      </div>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </motion.div>
+        <button className="hero-side hero-side-next" onClick={goNext} aria-label={`下一部 — ${next.title}`}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src={next.img} alt="" />
+          <span className="hero-side-tag">{next.kind}</span>
+          <span className="hero-side-title">{next.title}</span>
+        </button>
       </div>
+
+      <div className="hero-strip">
+        <div className="hero-strip-meta">
+          <span className="hero-strip-ep">EP.07</span>
+          <span className="hero-strip-dot" />
+          <span className="hero-strip-season">{featured.ep}</span>
+          <span className="hero-strip-dot" />
+          <span className="hero-strip-counter">
+            {String(idx + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
+          </span>
+        </div>
+        <Link href={`/watch/${featured.slug}`} className="hero-strip-cta">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+            <path d="M3 8h10m-4-4l4 4-4 4" />
+          </svg>
+          <span>立刻收看</span>
+        </Link>
+      </div>
+
+      <style>{`
+        .hero-section { position: relative; width: 100%; padding: 142px 0 60px; background: var(--bg-base); color: var(--text-primary); overflow: hidden; }
+        .hero-bg-tint { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 1200px; height: 700px; border-radius: 50%; background: radial-gradient(ellipse, rgba(83,225,161,0.18) 0%, rgba(83,225,161,0) 70%); filter: blur(60px); pointer-events: none; animation: hero-tint-fade 1.2s var(--ease-out-expo); animation-fill-mode: both; }
+        @keyframes hero-tint-fade { from { opacity: 0; } to { opacity: 1; } }
+        .hero-stage { position: relative; width: 100%; height: 540px; display: grid; grid-template-columns: 1fr 440px 1fr; gap: 20px; align-items: center; padding: 0 32px; max-width: 1440px; margin: 0 auto; z-index: 2; }
+        .hero-side { position: relative; height: 480px; max-width: 400px; justify-self: center; border-radius: 24px; overflow: hidden; padding: 0; color: #fff; cursor: pointer; background: rgb(36,42,40); transition: transform var(--dur-base) var(--ease-out-expo); opacity: 0.75; border: 0; }
+        .hero-side-prev { justify-self: end; width: 320px; }
+        .hero-side-next { justify-self: start; width: 400px; }
+        .hero-side img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(0.95) contrast(0.95); }
+        .hero-side::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0) 50%, rgba(0,0,0,0.85) 100%); }
+        .hero-side:hover { opacity: 1; transform: translateY(-2px); }
+        .hero-side-tag { position: absolute; top: 20px; left: 20px; z-index: 2; padding: 5px 10px; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); font-family: var(--font-mono); font-size: 11px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent-mint); border: 1px solid rgba(83,225,161,0.5); border-radius: 4px; }
+        .hero-side-title { position: absolute; bottom: 24px; left: 24px; right: 24px; z-index: 2; font-family: var(--font-display); font-weight: 700; font-size: calc(22px * var(--type-scale)); line-height: 1.2; color: #fff; text-align: left; }
+        .hero-center { width: 440px; height: 520px; justify-self: center; }
+        .hero-poster { display: flex; position: relative; width: 100%; height: 100%; border-radius: 24px; background: var(--accent-mint); padding: 28px 32px; flex-direction: column; gap: 12px; overflow: hidden; box-shadow: 0 24px 60px rgba(83,225,161,0.25), 0 0 0 1px rgba(83,225,161,0.5); animation: hero-poster-in 800ms var(--ease-out-expo); animation-fill-mode: both; }
+        @keyframes hero-poster-in { from { transform: translateY(12px) scale(0.98); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+        .hero-poster-tag { align-self: center; padding: 6px 16px; font-family: var(--font-mono); font-weight: 500; font-size: 14px; letter-spacing: 0.06em; color: rgb(24,24,24); background: rgba(2,49,30,0.14); border-radius: 12px; }
+        .hero-poster-title { margin: 0; font-family: var(--font-display); font-weight: 700; font-size: clamp(48px, 5vw, 72px); line-height: 1.05; letter-spacing: -0.02em; color: rgb(8,20,16); text-align: center; text-wrap: balance; }
+        .hero-poster-en { font-family: var(--font-sans-display); font-size: 16px; font-weight: 400; letter-spacing: 0.04em; color: rgba(2,49,30,0.6); text-align: center; }
+        .hero-poster-thumb { margin-top: auto; width: 100%; aspect-ratio: 16/9; overflow: hidden; border-radius: 12px; position: relative; background: rgb(8,20,16); }
+        .hero-poster-thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-poster-thumb-grad { position: absolute; inset: 0; background: linear-gradient(to top, rgba(8,20,16,0.65) 0%, rgba(8,20,16,0) 60%); }
+        .hero-poster-play { position: absolute; right: 24px; top: 24px; width: 56px; height: 56px; border-radius: 50%; background: rgb(8,20,16); color: var(--accent-mint); display: inline-flex; align-items: center; justify-content: center; transition: all var(--dur-fast) ease; z-index: 3; }
+        .hero-poster-play:hover { background: #fff; color: rgb(8,20,16); transform: scale(1.08); }
+        .hero-strip { margin: 40px auto 0; max-width: 1280px; padding: 0 32px; display: flex; justify-content: space-between; align-items: center; gap: 16px; position: relative; z-index: 2; }
+        .hero-strip-meta { display: inline-flex; align-items: center; gap: 14px; font-family: var(--font-mono); font-size: 14px; color: rgba(255,255,255,0.7); }
+        .hero-strip-ep { color: var(--accent-mint); font-weight: 600; }
+        .hero-strip-season { color: rgba(255,255,255,0.75); }
+        .hero-strip-counter { color: rgba(255,255,255,0.85); font-weight: 700; }
+        .hero-strip-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(255,255,255,0.3); }
+        .hero-strip-cta { display: inline-flex; align-items: center; gap: 8px; padding: 0 22px; min-height: 44px; border-radius: 999px; background: rgb(192,90,60); color: #fff; font-family: var(--font-display); font-weight: 500; font-size: calc(14px * var(--type-scale)); transition: all var(--dur-fast) ease; }
+        .hero-strip-cta:hover { background: var(--accent-mint); color: rgb(8,20,16); }
+        @media (max-width: 1100px) { .hero-stage { grid-template-columns: 1fr 360px 1fr; height: 480px; } .hero-center { width: 360px; height: 460px; } .hero-side-prev { width: 220px; height: 380px; } .hero-side-next { width: 260px; height: 380px; } .hero-poster-title { font-size: clamp(40px, 6vw, 56px); } }
+        @media (max-width: 768px) { .hero-section { padding: 116px 0 32px; } .hero-stage { grid-template-columns: 1fr; height: auto; gap: 12px; padding: 0 16px; } .hero-side { display: none; } .hero-center { width: 100%; height: 460px; } .hero-strip { flex-direction: column; align-items: stretch; gap: 12px; padding: 0 16px; } }
+      `}</style>
     </section>
   );
-}
-
-function HeroCenterCard({ video }: { video: Video }) {
-  return (
-    <motion.div
-      initial={{ y: 16, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
-      className="relative"
-    >
-      <div className="absolute -inset-3 lg:-inset-5 rounded-2xl lg:rounded-3xl bg-accent/15 blur-2xl -z-10 pointer-events-none" />
-      <Link
-        href={`/watch/${video.slug}`}
-        className="group block relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden rounded-2xl lg:rounded-3xl border-[3px] border-accent bg-bg-deep shadow-[0_0_60px_-12px_var(--color-accent)]"
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={video.hero} alt={video.title} className="size-full object-cover transition-transform duration-700 group-hover:scale-105" />
-        <div className="absolute inset-0 bg-gradient-to-t from-bg-deep/60 via-transparent to-bg-deep/20" />
-
-        {/* TOP: small "首播 / category" pill */}
-        <div className="absolute top-3 lg:top-5 left-1/2 -translate-x-1/2 flex gap-1.5">
-          <Badge variant="default" className="bg-accent text-text-inverse border-accent text-[10px] shadow-lg">劇情</Badge>
-        </div>
-
-        {/* CENTER: title + right-side play button */}
-        <div className="absolute inset-x-3 bottom-3 lg:inset-x-6 lg:bottom-6">
-          <div className="flex items-end justify-between gap-3">
-            <h2 className="font-display text-base sm:text-xl lg:text-3xl font-black text-text-primary line-clamp-2 leading-tight">
-              {video.title}
-            </h2>
-            <button
-              type="button"
-              onClick={(e) => { e.preventDefault(); }}
-              aria-label="播放"
-              className="shrink-0 size-9 lg:size-11 rounded-full bg-accent text-text-inverse flex items-center justify-center shadow-[0_0_24px_var(--color-accent)] hover:scale-105 transition-transform"
-            >
-              <Play className="size-4 lg:size-5 ml-0.5" fill="currentColor" />
-            </button>
-          </div>
-          {/* metadata + favorite button */}
-          <div className="mt-2 flex items-center gap-2 text-[10px] lg:text-xs text-text-muted">
-            <span>{video.duration}</span>
-            <span className="opacity-40">/</span>
-            <span>EP1</span>
-            <span className="opacity-40">/</span>
-            <span>共 {video.episodeCount} 集</span>
-            <button
-              type="button"
-              onClick={(e) => { e.preventDefault(); }}
-              className="ml-auto inline-flex items-center gap-1 h-6 px-2 rounded-full border border-border text-text-secondary hover:border-accent hover:text-accent transition-colors"
-            >
-              <Plus className="size-3" />
-              <span className="text-[10px]">收藏</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Corner brackets effect on hover */}
-        <CornerBrackets />
-      </Link>
-    </motion.div>
-  );
-}
-
-function HeroSideCard({ video, side }: { video: Video; side: "left" | "right" }) {
-  return (
-    <Link
-      href={`/watch/${video.slug}`}
-      className={cn(
-        "group block relative aspect-[3/4] overflow-hidden rounded-xl lg:rounded-2xl bg-bg-deep transition-all opacity-60 hover:opacity-100",
-        side === "left" ? "-mr-3 sm:-mr-6" : "-ml-3 sm:-ml-6",
-      )}
-      style={{
-        transform: side === "left" ? "perspective(800px) rotateY(8deg)" : "perspective(800px) rotateY(-8deg)",
-      }}
-    >
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={video.hero} alt={video.title} className="size-full object-cover transition-transform duration-500 group-hover:scale-105" />
-      <div className="absolute inset-0 bg-gradient-to-t from-bg-deep via-bg-deep/30 to-transparent" />
-      <div className="absolute inset-x-2 bottom-2 lg:inset-x-4 lg:bottom-4">
-        <div className="text-[10px] text-text-muted">{video.category}</div>
-        <div className="mt-0.5 text-xs lg:text-sm font-semibold text-text-primary line-clamp-1">{video.title}</div>
-      </div>
-      <CornerBrackets />
-    </Link>
-  );
-}
-
-function CornerBrackets() {
-  return (
-    <>
-      <span className="pointer-events-none absolute top-2 left-2 w-5 h-5 border-l-2 border-t-2 border-accent rounded-tl opacity-0 group-hover:opacity-100 transition-opacity" />
-      <span className="pointer-events-none absolute top-2 right-2 w-5 h-5 border-r-2 border-t-2 border-accent rounded-tr opacity-0 group-hover:opacity-100 transition-opacity" />
-      <span className="pointer-events-none absolute bottom-2 left-2 w-5 h-5 border-l-2 border-b-2 border-accent rounded-bl opacity-0 group-hover:opacity-100 transition-opacity" />
-      <span className="pointer-events-none absolute bottom-2 right-2 w-5 h-5 border-r-2 border-b-2 border-accent rounded-br opacity-0 group-hover:opacity-100 transition-opacity" />
-    </>
-  );
-}
-
-function pad(n: number) {
-  return String(n).padStart(2, "0");
 }

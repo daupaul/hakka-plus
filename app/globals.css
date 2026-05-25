@@ -1,143 +1,57 @@
 @import "tailwindcss";
+@import "./style-a.css";
 
+/* ============================================================
+   Tailwind v4 @theme — bridge new Style A tokens to utility classes
+   ============================================================ */
 @theme {
-  /* ===== Front-end (Style A 自信當代 — dark base) ===== */
-  --color-bg-base: #0a0f0d;
-  --color-bg-elevated: #14201b;
-  --color-bg-deep: #060906;
-  --color-bg-card: #182722;
+  --color-bg-base: rgb(21, 27, 25);
+  --color-bg-elevated: rgb(31, 36, 34);
+  --color-bg-card: rgb(36, 42, 40);
+  --color-bg-deep: rgb(8, 20, 16);
+  --color-bg-soft: rgb(24, 24, 24);
 
-  --color-accent: #00ff94;          /* 螢光綠 主色 */
-  --color-accent-strong: #00cc77;
-  --color-accent-soft: rgba(0, 255, 148, 0.12);
-  --color-accent-warm: #ffa94d;     /* 評委 Q1/M2 溫度元素 */
+  --color-accent: rgb(83, 225, 161);
+  --color-accent-strong: rgb(0, 161, 101);
+  --color-accent-soft: rgb(56, 180, 111);
+  --color-accent-mid: rgb(0, 176, 111);
+  --color-accent-deep: rgb(0, 161, 80);
+  --color-accent-warm: rgb(192, 90, 60);
+  --color-accent-pale: rgb(209, 250, 223);
 
-  --color-text-primary: #f5f5f0;
-  --color-text-secondary: #b3b8b3;
-  --color-text-muted: #6b7570;
-  --color-text-inverse: #0a0f0d;
+  --color-text-primary: rgb(255, 255, 255);
+  --color-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-text-muted: rgba(255, 255, 255, 0.4);
+  --color-text-inverse: rgb(11, 11, 11);
 
-  --color-border: rgba(255, 255, 255, 0.08);
-  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --color-border: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.3);
 
-  --color-success: #00ff94;
-  --color-warning: #ffa94d;
-  --color-danger: #ff5470;
-  --color-info: #4dd0ff;
+  --color-success: rgb(22, 163, 74);
+  --color-warning: rgb(217, 119, 6);
+  --color-danger: rgb(220, 38, 38);
+  --color-info: rgb(37, 99, 235);
 
-  /* ===== Typography ===== */
-  --font-sans: var(--font-sans-tc), ui-sans-serif, system-ui;
-  --font-display: var(--font-display), var(--font-sans-tc), ui-sans-serif;
-  --font-mono: ui-monospace, "SF Mono", monospace;
-
-  /* ===== Radius ===== */
-  --radius-card: 1rem;        /* 16px */
-  --radius-hero: 1.5rem;      /* 24px */
-  --radius-pill: 9999px;
-
-  /* ===== Motion ===== */
-  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --font-sans: "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
+  --font-display: "Glow Sans TC", "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "Roboto Mono", "Courier New", monospace;
+  --font-condensed: "Barlow Condensed", "Oswald", sans-serif;
 }
 
-/* ===== Admin shell (light theme override) ===== */
+/* ============================================================
+   Admin shell (light theme) — applies when on /admin/* routes
+   ============================================================ */
 .admin-shell {
-  --color-bg-base: #f6faf8;
-  --color-bg-elevated: #ffffff;
-  --color-bg-deep: #eef3f0;
-  --color-bg-card: #ffffff;
-  --color-accent: #006b3f;
-  --color-accent-strong: #005232;
-  --color-accent-soft: rgba(0, 107, 63, 0.10);
-  --color-text-primary: #1a1f1c;
-  --color-text-secondary: #4a544f;
-  --color-text-muted: #8a948f;
-  --color-text-inverse: #ffffff;
-  --color-border: rgba(0, 0, 0, 0.08);
-  --color-border-strong: rgba(0, 0, 0, 0.16);
-  background: var(--color-bg-base);
-  color: var(--color-text-primary);
+  background: #f6f4ef;
+  color: #1a1f1d;
 }
 
-/* ===== Senior-friendly mode (淺底大字高對比) ===== */
+/* ============================================================
+   Senior-friendly — uses the same [data-elder="true"] toggle the
+   .fig design uses (NOT a body class). Maps to my Zustand store.
+   ============================================================ */
 .senior-mode {
-  --color-bg-base: #ffffff;
-  --color-bg-elevated: #f3f6f4;
-  --color-bg-deep: #e7ede9;
-  --color-bg-card: #ffffff;
-  --color-accent: #006b3f;
-  --color-accent-strong: #004f2e;
-  --color-text-primary: #15191a;
-  --color-text-secondary: #2f3735;
-  --color-text-muted: #545d5a;
-  --color-text-inverse: #ffffff;
-  --color-border: rgba(0, 0, 0, 0.15);
-  --color-border-strong: rgba(0, 0, 0, 0.35);
-  font-size: 1.2em; /* 字級 +20% */
-  background: var(--color-bg-base);
-  color: var(--color-text-primary);
-}
-
-.senior-mode button,
-.senior-mode a.button,
-.senior-mode [data-button] {
-  min-height: 48px;
-  font-weight: 600;
-}
-
-.senior-mode .senior-hide {
-  display: none !important;
-}
-
-/* ===== Base ===== */
-html,
-body {
-  background: var(--color-bg-base);
-  color: var(--color-text-primary);
-}
-
-* {
-  border-color: var(--color-border);
-}
-
-::selection {
-  background: var(--color-accent);
-  color: var(--color-text-inverse);
-}
-
-/* ===== Typography utilities ===== */
-.font-display {
-  font-family: var(--font-display);
-  letter-spacing: -0.01em;
-}
-
-.clock-numerals {
-  font-family: var(--font-display);
-  font-feature-settings: "tnum" 1;
-  font-weight: 800;
-  letter-spacing: -0.04em;
-}
-
-/* ===== Cards / sections ===== */
-.card {
-  background: var(--color-bg-card);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-card);
-}
-
-.section-title {
-  font-family: var(--font-display);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 800;
-  color: var(--color-accent);
-}
-
-/* ===== Scrollbar ===== */
-.scroll-pretty::-webkit-scrollbar {
-  height: 6px;
-  width: 6px;
-}
-.scroll-pretty::-webkit-scrollbar-thumb {
-  background: var(--color-border-strong);
-  border-radius: 9999px;
+  --type-scale: 1.22;
+  --tap-min: 48px;
+  --line-mult: 1.4;
 }
