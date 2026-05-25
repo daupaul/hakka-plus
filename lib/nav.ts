@@ -68,7 +68,6 @@ export const ADMIN_NAV: AdminNavItem[] = [
     href: "/admin/news",
     label: "新聞管理",
     icon: Newspaper,
-    badge: "v2",
     children: [
       { href: "/admin/news", label: "新聞列表", icon: Newspaper },
       { href: "/admin/news/inews", label: "iNews 匯入", icon: Cloud },
@@ -154,7 +153,6 @@ export const ADMIN_NAV: AdminNavItem[] = [
     href: "/admin/incidents",
     label: "危機處理",
     icon: ShieldAlert,
-    badge: "v2",
     children: [
       { href: "/admin/incidents", label: "事件單", icon: ShieldAlert },
       { href: "/admin/incidents/sla", label: "SLA 監控", icon: ShieldAlert },

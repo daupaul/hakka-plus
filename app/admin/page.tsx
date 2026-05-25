@@ -43,13 +43,13 @@ export default function AdminDashboardPage() {
       {/* Real-time stat cards (from store) */}
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard icon={<Film className="size-5" />} label="影片庫" value={videos.length} delta={`${publishedVideos} 已發布 / ${draftVideos} 草稿`} href="/admin/videos" />
-        <StatCard icon={<Newspaper className="size-5" />} label="新聞" value={news.length} delta={`${publishedNews} 已發布 / ${featuredNews} 編輯精選`} href="/admin/news" v2 />
+        <StatCard icon={<Newspaper className="size-5" />} label="新聞" value={news.length} delta={`${publishedNews} 已發布 / ${featuredNews} 編輯精選`} href="/admin/news" />
         <StatCard icon={<Sparkles className="size-5" />} label="策展" value={curations.length} delta="生活+ 內容" href="/admin/curations" />
         <StatCard icon={<ShoppingBag className="size-5" />} label="選物商品" value={products.length} delta={`${formatNumber(totalProductClicks)} 累計點擊`} href="/admin/shop" />
         <StatCard icon={<Bookmark className="size-5" />} label="主題訂閱" value={themes.length} delta={`${formatNumber(totalSubscribers)} 訂閱數`} href="/admin/themes" />
         <StatCard icon={<Tags className="size-5" />} label="跨類型標籤" value={tags.length} delta="內容宇宙串聯" href="/admin/tags" />
         <StatCard icon={<CalendarDays className="size-5" />} label="時間軸時段" value={timeline.length} delta="6 個 24hr 推薦池" href="/admin/timeline" />
-        <StatCard icon={<ShieldAlert className="size-5" />} label="待處理事件" value="2" delta="0 嚴重" tone="warning" href="/admin/incidents" v2 />
+        <StatCard icon={<ShieldAlert className="size-5" />} label="待處理事件" value="2" delta="0 嚴重" tone="warning" href="/admin/incidents" />
       </div>
 
       {/* Interactivity demo banner */}
@@ -168,7 +168,7 @@ export default function AdminDashboardPage() {
   );
 }
 
-function StatCard({ icon, label, value, delta, tone = "default", href, v2 }: { icon: React.ReactNode; label: string; value: string | number; delta?: string; tone?: "default" | "warning"; href?: string; v2?: boolean }) {
+function StatCard({ icon, label, value, delta, tone = "default", href }: { icon: React.ReactNode; label: string; value: string | number; delta?: string; tone?: "default" | "warning"; href?: string }) {
   const body = (
     <Card className="hover:border-accent transition-colors h-full">
       <CardContent>
@@ -178,7 +178,6 @@ function StatCard({ icon, label, value, delta, tone = "default", href, v2 }: { i
         </div>
         <div className="mt-3 text-2xl lg:text-3xl font-display font-extrabold text-text-primary">{value}</div>
         {delta && <div className="mt-1 text-xs text-text-muted">{delta}</div>}
-        {v2 && <div className="mt-2"><Badge variant="warm">v2 必殺技</Badge></div>}
       </CardContent>
     </Card>
   );

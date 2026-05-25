@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSeniorMode, SENIOR_LEVEL_LABEL, type SeniorLevel } from "@/lib/store/senior-mode";
 import { useUi } from "@/lib/store/ui";
+import { HakkaLogo } from "./logo";
 
 /**
  * Style A header — matches /Users/paul/Downloads/Hakka_/components/Header.jsx
@@ -41,15 +41,7 @@ export function Header() {
         }}
       >
         <Link className="brand-logo" href="/" aria-label="HakkaTV 客家電視台">
-          <Image
-            src={senior ? "/hakka-logo-dark.png" : "/hakka-logo.png"}
-            alt="HakkaTV"
-            width={senior ? 200 : 160}
-            height={senior ? 50 : 40}
-            priority
-            className="brand-logo-img"
-            style={{ height: "auto" }}
-          />
+          <HakkaLogo size={senior ? "lg" : "md"} invert={senior} />
         </Link>
 
         <nav className="site-nav" aria-label="主分類">
