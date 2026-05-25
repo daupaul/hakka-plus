@@ -14,23 +14,23 @@ export function ToastViewport() {
         <div
           key={t.id}
           className={cn(
-            "pointer-events-auto card p-4 min-w-[280px] max-w-sm shadow-xl backdrop-blur-md",
-            "border bg-bg-elevated/95",
-            t.variant === "success" && "border-accent",
-            t.variant === "warning" && "border-warning",
-            t.variant === "danger" && "border-danger",
+            "toast-card pointer-events-auto p-4 min-w-[280px] max-w-sm shadow-xl backdrop-blur-md rounded-xl border",
+            t.variant === "success" && "toast-card--success",
+            t.variant === "warning" && "toast-card--warning",
+            t.variant === "danger" && "toast-card--danger",
           )}
         >
           <div className="flex items-start gap-3">
             <div className="flex-1">
-              <div className="font-semibold text-sm text-text-primary">{t.title}</div>
+              <div className="toast-card-title font-semibold text-sm">{t.title}</div>
               {t.description ? (
-                <div className="mt-1 text-xs text-text-secondary">{t.description}</div>
+                <div className="toast-card-desc mt-1 text-xs">{t.description}</div>
               ) : null}
             </div>
             <button
               onClick={() => dismiss(t.id)}
-              className="text-text-muted hover:text-text-primary transition-colors"
+              className="toast-card-close transition-colors"
+              aria-label="關閉通知"
             >
               <X className="size-4" />
             </button>
