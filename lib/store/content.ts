@@ -200,6 +200,7 @@ export const useContent = create<ContentStore>()(
       name: "hakka-poc.content",
       storage: createJSONStorage(() => localStorage),
       skipHydration: true,
+      version: 2, // bump → 自動清掉舊 localStorage（避免殘留 stale seed 讓 timeline 配對為空）
     },
   ),
 );
