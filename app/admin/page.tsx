@@ -52,31 +52,6 @@ export default function AdminDashboardPage() {
         <StatCard icon={<ShieldAlert className="size-5" />} label="待處理事件" value="2" delta="0 嚴重" tone="warning" href="/admin/incidents" />
       </div>
 
-      {/* Interactivity demo banner */}
-      <Card className="border-accent/40 bg-accent-soft">
-        <CardContent>
-          <div className="flex items-start gap-3">
-            <CheckCircle2 className="size-6 text-accent shrink-0 mt-0.5" />
-            <div className="flex-1">
-              <h3 className="font-bold text-text-primary">前後台即時聯動</h3>
-              <p className="mt-1 text-sm text-text-secondary">
-                以下後台模組的所有 CRUD 操作會即時反映到前台對應頁面（透過共用 Zustand store + localStorage）：
-              </p>
-              <div className="mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 text-xs">
-                <LinkPair admin="/admin/videos" front="/watch" label="影音" />
-                <LinkPair admin="/admin/news" front="/news" label="新聞" />
-                <LinkPair admin="/admin/curations" front="/life" label="策展" />
-                <LinkPair admin="/admin/shop" front="/shop" label="選物" />
-                <LinkPair admin="/admin/themes" front="/themes" label="主題訂閱" />
-                <LinkPair admin="/admin/timeline" front="/" label="時間軸 (Home)" />
-                <LinkPair admin="/admin/tags" front="/search" label="標籤" />
-                <LinkPair admin="/admin/settings" front="/" label="網站設定 (Footer)" />
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Two-col layout */}
       <div className="grid gap-6 lg:grid-cols-12">
         <Card className="lg:col-span-7">
@@ -139,31 +114,6 @@ export default function AdminDashboardPage() {
         </Card>
       </div>
 
-      {/* Quick links to live frontend pages */}
-      <Card>
-        <CardContent>
-          <h2 className="font-display font-bold mb-3">前台快速跳轉（驗證互動）</h2>
-          <p className="text-xs text-text-muted mb-4">
-            建議測試流程：① 在影音/新聞/策展 CMS 新增或編輯內容 → ② 點下方任一前台連結（會在新分頁開啟） → ③ 確認改動立即顯示
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {[
-              { href: "/", label: "Home" },
-              { href: "/watch", label: "影視列表" },
-              { href: "/news", label: "新聞列表" },
-              { href: "/life", label: "生活+ 策展" },
-              { href: "/shop", label: "客家選物" },
-              { href: "/themes", label: "主題訂閱" },
-              { href: "/about", label: "關於客台" },
-              { href: "/search", label: "全站搜尋" },
-            ].map((l) => (
-              <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-1.5 h-9 px-4 rounded-full border border-border text-sm text-text-secondary hover:border-accent hover:text-accent transition-colors">
-                {l.label} ↗
-              </a>
-            ))}
-          </div>
-        </CardContent>
-      </Card>
     </div>
   );
 }
@@ -196,12 +146,3 @@ function Health({ label, value, tone }: { label: string; value: string; tone: "g
   );
 }
 
-function LinkPair({ admin, front, label }: { admin: string; front: string; label: string }) {
-  return (
-    <div className="flex items-center gap-1.5 p-2 rounded bg-bg-base/80">
-      <Link href={admin} className="font-mono text-[10px] text-accent hover:underline">{admin}</Link>
-      <ArrowRight className="size-3 text-text-muted shrink-0" />
-      <a href={front} target="_blank" rel="noreferrer" className="font-mono text-[10px] text-text-secondary hover:text-accent">{front} ↗</a>
-    </div>
-  );
-}

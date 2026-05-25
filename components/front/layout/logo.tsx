@@ -1,3 +1,6 @@
+"use client";
+
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -7,42 +10,27 @@ interface Props {
   invert?: boolean;
 }
 
-const SIZES = { sm: "h-6", md: "h-7 lg:h-9", lg: "h-9 lg:h-11" };
-
 /**
- * HakkaTV brand mark — pure inline SVG, infinitely crisp at any size.
- * 5-petal 油桐花 icon + bold "HakkaTV" wordmark.
+ * HakkaTV brand mark — uses the official PNG (640×160 @4x source for retina).
+ * Matches the original design exactly. `invert` swaps to dark-ink variant for light bgs.
  */
+const SIZES = {
+  sm: { w: 128, h: 32 },   // shown as 128×32 CSS pixels
+  md: { w: 160, h: 40 },
+  lg: { w: 200, h: 50 },
+};
+
 export function HakkaLogo({ className, size = "md", invert = false }: Props) {
+  const s = SIZES[size];
   return (
-    <svg
-      viewBox="0 0 240 60"
-      className={cn(SIZES[size], "w-auto", invert ? "text-[#14181a]" : "text-white", className)}
-      fill="currentColor"
-      role="img"
-      aria-label="HakkaTV"
-    >
-      <g transform="translate(30 30)">
-        <circle r="24" fill="none" stroke="currentColor" strokeWidth="2.8" />
-        {[0, 72, 144, 216, 288].map((deg) => (
-          <path
-            key={deg}
-            d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z"
-            transform={`rotate(${deg})`}
-          />
-        ))}
-        <circle r="2.8" />
-      </g>
-      <text
-        x="68"
-        y="40"
-        fontFamily='-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Noto Sans TC", system-ui, sans-serif'
-        fontWeight="900"
-        fontSize="30"
-        letterSpacing="-1.2"
-      >
-        Hakka<tspan fontStyle="italic" letterSpacing="-0.5">TV</tspan>
-      </text>
-    </svg>
+    <Image
+      src={invert ? "/hakka-logo-dark.png" : "/hakka-logo.png"}
+      alt="HakkaTV"
+      width={s.w}
+      height={s.h}
+      priority
+      className={cn("w-auto", className)}
+      style={{ height: s.h, width: "auto" }}
+    />
   );
 }

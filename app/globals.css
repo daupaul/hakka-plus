@@ -73,6 +73,11 @@
   color: #1a1f1d !important;
 }
 
+/* Admin sidebar — let HakkaLogo PNG show at its natural display size */
+[data-theme="admin"] .adm-brand { padding: 12px 8px 20px; gap: 6px; flex-direction: column; align-items: flex-start; }
+[data-theme="admin"] .adm-brand img { display: block; }
+[data-theme="admin"] .adm-brand-text { display: none; }
+
 /* ============================================================
    Senior-friendly (L1-J) — 對應 v2 評委 M3 + 提案 §1.5 7 項 L3
    1. 字級三段切換 (data-senior-level: standard / large / xl)
