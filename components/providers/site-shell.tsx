@@ -8,6 +8,7 @@ import { ToastViewport } from "@/components/ui/toast-viewport";
 
 export function SiteShell({ children }: { children: React.ReactNode }) {
   const senior = useSeniorMode((s) => s.enabled);
+  const level = useSeniorMode((s) => s.level);
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
 
@@ -21,11 +22,17 @@ export function SiteShell({ children }: { children: React.ReactNode }) {
     if (isAdmin) {
       body.classList.add("admin-shell");
       body.classList.remove("senior-mode");
+      body.removeAttribute("data-senior-level");
     } else {
       body.classList.remove("admin-shell");
       body.classList.toggle("senior-mode", senior);
+      if (senior) {
+        body.setAttribute("data-senior-level", level);
+      } else {
+        body.removeAttribute("data-senior-level");
+      }
     }
-  }, [senior, isAdmin]);
+  }, [senior, level, isAdmin]);
 
   return (
     <>

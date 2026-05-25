@@ -39,7 +39,7 @@
 }
 
 /* ============================================================
-   Admin shell (light theme) — applies when on /admin/* routes
+   Admin shell (light theme) — applies on /admin/* routes
    ============================================================ */
 .admin-shell {
   background: #f6f4ef;
@@ -47,75 +47,92 @@
 }
 
 /* ============================================================
-   Senior-friendly (L1-J) — 對應 v2 評委 M3 + 提案 §1.5 7 項 L3 規格
-   - 字級 +22% (type-scale 1.22)
-   - 按鈕 ≥ 48px (tap-min)
-   - 行高 1.4
-   - 淺底高對比配色 (對比 ≥ 4.5:1，符合 WCAG 2.1 AA)
-   - Style A token override
+   Senior-friendly (L1-J) — 對應 v2 評委 M3 + 提案 §1.5 7 項 L3
+   1. 字級三段切換 (data-senior-level: standard / large / xl)
+   2. 高對比配色 (對比 ≥ 4.5:1，WCAG 2.1 AA)
+   3. 簡化版首頁 (隱藏 FRESH / Timeline / HakkaLife 裝飾區)
+   4. 節目表 + 新聞置頂 (透過 SeniorPriority 元件 + DOM 順序)
+   5. 按鈕 ≥ 48px (tap-min)
+   6. 單層導航 (隱藏 site-actions)
+   7. WCAG 2.1 AA 全覆蓋
    ============================================================ */
 .senior-mode {
+  /* default level when no data attribute — defaults to "大" */
   --type-scale: 1.22;
   --tap-min: 48px;
   --line-mult: 1.4;
 
-  /* Light background (cream paper) — 提案明列的「淺底高對比」 */
+  /* Cream paper light bg */
   --bg-base: #fbf9f3;
   --bg-elevated: #ffffff;
   --bg-card: #ffffff;
   --bg-deep: #ece8dc;
   --bg-soft: #f3f0e6;
 
-  /* Dark ink text — 對比 ≥ 4.5:1 */
+  /* Dark ink text — 對比 ≥ 16:1 */
   --text-primary: #14181a;
-  --text-secondary: rgba(20, 24, 26, 0.75);
-  --text-muted: rgba(20, 24, 26, 0.55);
+  --text-secondary: rgba(20, 24, 26, 0.78);
+  --text-muted: rgba(20, 24, 26, 0.58);
   --text-dim: rgba(20, 24, 26, 0.45);
   --text-inverse: #ffffff;
 
-  /* Hakka deep green accent (深綠提供更高對比，符合 WCAG AA) */
+  /* Hakka deep green accent (4.5:1+ on cream) */
   --accent-mint: #00703c;
   --accent-main: #00703c;
   --accent-strong: #005a30;
   --accent-deep: #00703c;
   --accent-pale: #d4ecd9;
 
-  /* Border / shadow */
   --border-default: rgba(20, 24, 26, 0.18);
   --border-strong: rgba(20, 24, 26, 0.35);
+
+  color-scheme: light;
 }
 
-/* Senior mode — site header inverts to cream bg + dark logo */
+/* Three-tier text size */
+.senior-mode[data-senior-level="standard"] { --type-scale: 1.0; --tap-min: 44px; --line-mult: 1.25; }
+.senior-mode[data-senior-level="large"]    { --type-scale: 1.22; --tap-min: 48px; --line-mult: 1.4; }
+.senior-mode[data-senior-level="xl"]       { --type-scale: 1.5;  --tap-min: 56px; --line-mult: 1.55; }
+
+/* Force Tailwind utility-classes to flip to light */
+.senior-mode .bg-bg-base { background: #fbf9f3 !important; }
+.senior-mode .bg-bg-elevated { background: #ffffff !important; }
+.senior-mode .bg-bg-deep { background: #ece8dc !important; }
+.senior-mode .text-text-primary { color: #14181a !important; }
+.senior-mode .text-text-secondary { color: rgba(20,24,26,0.78) !important; }
+.senior-mode .text-text-muted { color: rgba(20,24,26,0.58) !important; }
+.senior-mode .border-border { border-color: rgba(20,24,26,0.18) !important; }
+
+/* Header invert */
 .senior-mode .site-header {
   background: rgba(251, 249, 243, 0.95) !important;
   border-bottom: 1px solid rgba(20,24,26,0.12) !important;
 }
-.senior-mode .site-header .header-en-pill {
-  background: #14181a;
-  color: #fff;
-}
-.senior-mode .site-header .header-en-pill:hover {
-  background: var(--accent-main);
-}
+.senior-mode .site-header .site-nav-item { color: #14181a; }
+.senior-mode .site-header .site-nav-item:hover { color: #00703c; background: rgba(0,112,60,0.08); }
+.senior-mode .site-header .header-en-pill { background: #14181a; color: #fff; }
+.senior-mode .site-header .header-en-pill:hover { background: #00703c; }
+.senior-mode .site-header .header-icon-btn { color: #14181a; }
+.senior-mode .site-header .header-icon-btn:hover { background: rgba(0,0,0,0.08); color: #00703c; }
 
-/* Senior mode — Tailwind v4 bg-bg-base utility 也要翻成淺色 */
-.senior-mode { color-scheme: light; }
-.senior-mode .bg-bg-base { background: #fbf9f3 !important; }
-.senior-mode .bg-bg-elevated { background: #ffffff !important; }
-.senior-mode .text-text-primary { color: #14181a !important; }
-.senior-mode .text-text-secondary { color: rgba(20,24,26,0.75) !important; }
-
-/* Senior mode — Hide decorative complex sections (per 提案 §1.5: 簡化版首頁，凸顯節目表+新聞) */
-.senior-mode .fc-section,        /* Fresh Contents — 行銷裝飾性 */
-.senior-mode .ts-section,        /* 24hr Timeline — 視覺特效 */
-.senior-mode .hl-section {       /* Hakka Life mint reels */
-  display: none;
+/* Hide decorative sections (per §1.5 簡化版首頁) */
+.senior-mode .fc-section,
+.senior-mode .ts-section,
+.senior-mode .hl-section,
+.senior-mode .hero-section {
+  display: none !important;
 }
 
-/* Senior mode — single-layer nav (only show core 3 tabs, hide search/EN actions) */
-.senior-mode .site-actions { display: none; }
+/* Single-layer nav (hide secondary actions) */
+.senior-mode .site-actions { display: none !important; }
 
-/* Shared atom — round mint nav button */
+/* Body bg force */
+.senior-mode body,
+body.senior-mode { background: #fbf9f3 !important; color: #14181a !important; }
+
+/* ============================================================
+   Shared atom — round mint nav button
+   ============================================================ */
 .circle-nav {
   width: 64px; height: 64px;
   border-radius: 50%;

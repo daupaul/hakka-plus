@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { useSeniorMode } from "@/lib/store/senior-mode";
+import { useSeniorMode, SENIOR_LEVEL_LABEL, type SeniorLevel } from "@/lib/store/senior-mode";
 import { useUi } from "@/lib/store/ui";
 
 /**
@@ -14,7 +14,9 @@ export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const senior = useSeniorMode((s) => s.enabled);
+  const level = useSeniorMode((s) => s.level);
   const toggleSenior = useSeniorMode((s) => s.toggle);
+  const setLevel = useSeniorMode((s) => s.setLevel);
   const toast = useUi((s) => s.toast);
 
   useEffect(() => {
@@ -108,27 +110,71 @@ export function Header() {
         </div>
       )}
 
-      {/* Senior-friendly FAB */}
-      <button
-        type="button"
-        onClick={() => {
-          toggleSenior();
-          toast({
-            variant: "success",
-            title: senior ? "已切回標準模式" : "已切換為長輩友善模式",
-            description: senior ? "回到完整介面" : "字級放大 22%、按鈕變大、節目表 / 新聞優先",
-          });
-        }}
-        aria-pressed={senior}
-        className="fixed bottom-6 right-6 z-50 inline-flex items-center gap-2 h-12 px-4 rounded-full bg-bg-elevated border border-border hover:border-accent text-text-primary transition-colors shadow-lg"
-        style={{ background: senior ? "var(--accent-mint)" : "var(--bg-elevated)", color: senior ? "var(--text-inverse)" : "var(--text-primary)" }}
-      >
-        <span className="font-mono font-bold">A+</span>
-        <span className="flex flex-col items-start leading-tight text-xs">
-          <span className="font-semibold">長輩友善模式</span>
-          <span className="text-[10px] opacity-70">{senior ? "ON" : "OFF"}</span>
-        </span>
-      </button>
+      {/* Senior-friendly FAB — when off: single toggle. When on: 3-tier text size + off button */}
+      {!senior ? (
+        <button
+          type="button"
+          onClick={() => {
+            toggleSenior();
+            toast({ variant: "success", title: "已切換為長輩友善模式", description: "字級放大、按鈕變大、節目表 / 新聞優先、淺底高對比" });
+          }}
+          aria-pressed={false}
+          className="senior-fab"
+          style={{
+            position: "fixed", bottom: 24, right: 24, zIndex: 50,
+            display: "inline-flex", alignItems: "center", gap: 8, height: 48, padding: "0 20px",
+            borderRadius: 999, background: "rgba(31, 36, 34, 0.95)", color: "#fff",
+            border: "1px solid rgba(255,255,255,0.18)", boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
+            cursor: "pointer", fontFamily: "var(--font-cn)",
+          }}
+        >
+          <span style={{ fontFamily: "var(--font-mono)", fontWeight: 700 }}>A+</span>
+          <span style={{ fontSize: 14, fontWeight: 600 }}>長輩友善模式</span>
+        </button>
+      ) : (
+        <div
+          className="senior-fab-expanded"
+          style={{
+            position: "fixed", bottom: 24, right: 24, zIndex: 50,
+            display: "inline-flex", alignItems: "center", gap: 8, padding: 8,
+            borderRadius: 999, background: "#ffffff", border: "2px solid #14181a",
+            boxShadow: "0 4px 0 #14181a, 0 12px 32px rgba(0,0,0,0.15)",
+          }}
+        >
+          <span style={{ fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 13, padding: "0 8px", color: "#14181a" }}>字級</span>
+          {(["standard", "large", "xl"] as SeniorLevel[]).map((l) => {
+            const active = level === l;
+            const size = l === "standard" ? 14 : l === "large" ? 16 : 19;
+            return (
+              <button
+                key={l}
+                type="button"
+                onClick={() => { setLevel(l); toast({ variant: "default", title: `字級：${SENIOR_LEVEL_LABEL[l]}` }); }}
+                aria-pressed={active}
+                style={{
+                  minWidth: 44, minHeight: 44, padding: "0 12px", borderRadius: 999,
+                  background: active ? "#00703c" : "transparent", color: active ? "#fff" : "#14181a",
+                  border: active ? "0" : "1px solid rgba(20,24,26,0.18)",
+                  fontFamily: "var(--font-cn)", fontWeight: 700, fontSize: size, cursor: "pointer",
+                }}
+              >
+                {SENIOR_LEVEL_LABEL[l]}
+              </button>
+            );
+          })}
+          <button
+            type="button"
+            onClick={() => { toggleSenior(); toast({ variant: "success", title: "已切回標準模式" }); }}
+            style={{
+              minWidth: 44, minHeight: 44, padding: "0 14px", borderRadius: 999,
+              background: "#14181a", color: "#fff", border: 0,
+              fontFamily: "var(--font-mono)", fontWeight: 700, fontSize: 13, cursor: "pointer",
+            }}
+          >
+            關閉
+          </button>
+        </div>
+      )}
     </>
   );
 }
