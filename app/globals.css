@@ -40,10 +40,37 @@
 
 /* ============================================================
    Admin shell (light theme) — applies on /admin/* routes
+   Force Tailwind utility classes to flip light, matching admin.css
    ============================================================ */
-.admin-shell {
-  background: #f6f4ef;
-  color: #1a1f1d;
+.admin-shell,
+[data-theme="admin"] body {
+  background: #f6f4ef !important;
+  color: #1a1f1d !important;
+}
+
+/* Force Tailwind bg/text utilities used by admin pages to flip light */
+[data-theme="admin"] .bg-bg-base { background: #f6f4ef !important; }
+[data-theme="admin"] .bg-bg-elevated { background: #ffffff !important; }
+[data-theme="admin"] .bg-bg-card { background: #ffffff !important; }
+[data-theme="admin"] .bg-bg-deep { background: #efeae0 !important; }
+[data-theme="admin"] .text-text-primary { color: #1a1f1d !important; }
+[data-theme="admin"] .text-text-secondary { color: rgba(26,31,29,0.7) !important; }
+[data-theme="admin"] .text-text-muted { color: rgba(26,31,29,0.5) !important; }
+[data-theme="admin"] .border-border { border-color: rgba(26,31,29,0.1) !important; }
+[data-theme="admin"] .border-border-strong { border-color: rgba(26,31,29,0.2) !important; }
+
+/* Admin accent — Hakka deep green */
+[data-theme="admin"] .text-accent { color: #00A150 !important; }
+[data-theme="admin"] .bg-accent { background: #00A150 !important; color: #fff !important; }
+[data-theme="admin"] .bg-accent-soft { background: #d4ecd9 !important; }
+[data-theme="admin"] .border-accent { border-color: #00A150 !important; }
+[data-theme="admin"] .text-accent-strong { color: #00A150 !important; }
+
+/* Card hover halo in admin */
+[data-theme="admin"] .card {
+  background: #ffffff !important;
+  border-color: rgba(26,31,29,0.08) !important;
+  color: #1a1f1d !important;
 }
 
 /* ============================================================
