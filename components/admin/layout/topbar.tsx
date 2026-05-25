@@ -1,70 +1,75 @@
 "use client";
 
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Search, Bell, LogOut, ExternalLink } from "lucide-react";
-import { useAuth } from "@/lib/store/auth";
-import { useUi } from "@/lib/store/ui";
+import { usePathname } from "next/navigation";
+
+const CRUMB_LABEL: Record<string, string> = {
+  "/admin": "總覽 Dashboard",
+  "/admin/videos": "影音管理",
+  "/admin/news": "新聞管理",
+  "/admin/curations": "策展管理",
+  "/admin/members": "會員管理",
+  "/admin/orders": "金流管理",
+  "/admin/roles": "編輯 / 權限",
+  "/admin/cdn": "數據分析",
+  "/admin/service": "支援 / 客服",
+  "/admin/tags": "標籤管理",
+  "/admin/themes": "主題訂閱",
+  "/admin/timeline": "時間軸",
+  "/admin/seo": "SEO 設定",
+  "/admin/incidents": "事件監控",
+  "/admin/notifications": "推播通知",
+  "/admin/shop": "商城",
+  "/admin/schedule": "節目表",
+  "/admin/settings": "系統設定",
+};
+
+function currentLabel(pathname: string) {
+  if (CRUMB_LABEL[pathname]) return CRUMB_LABEL[pathname];
+  // Walk up paths
+  const segs = pathname.split("/");
+  while (segs.length > 0) {
+    segs.pop();
+    const path = segs.join("/") || "/admin";
+    if (CRUMB_LABEL[path]) return CRUMB_LABEL[path];
+  }
+  return "Admin";
+}
 
 export function AdminTopbar() {
-  const router = useRouter();
-  const admin = useAuth((s) => s.admin);
-  const logout = useAuth((s) => s.logoutAdmin);
-  const toast = useUi((s) => s.toast);
+  const pathname = usePathname();
+  const label = currentLabel(pathname);
 
   return (
-    <header className="sticky top-0 z-30 h-16 border-b border-border bg-bg-elevated/95 backdrop-blur-md">
-      <div className="h-full px-6 flex items-center gap-4">
-        <div className="hidden md:flex items-center gap-2 max-w-md flex-1">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-text-muted" />
-            <input
-              type="search"
-              placeholder="搜尋影片 / 新聞 / 會員 / 訂單…"
-              className="h-9 w-full rounded-full bg-bg-base border border-border pl-9 pr-3 text-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-accent"
-            />
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 ml-auto">
-          <Link
-            href="/"
-            target="_blank"
-            className="inline-flex items-center gap-1.5 h-9 px-3 rounded-full border border-border text-xs text-text-secondary hover:text-accent hover:border-accent transition-colors"
-          >
-            <ExternalLink className="size-3.5" /> 查看前台
-          </Link>
-          <button
-            onClick={() => toast({ variant: "default", title: "通知中心", description: "POC 階段尚未串接真實通知。" })}
-            className="size-9 rounded-full border border-border inline-flex items-center justify-center text-text-secondary hover:text-text-primary transition-colors"
-            aria-label="通知"
-          >
-            <Bell className="size-4" />
-          </button>
-          {admin ? (
-            <>
-              <div className="hidden md:flex items-center gap-2 px-3 h-9 rounded-full border border-border">
-                <div className="size-6 rounded-full bg-gradient-to-br from-accent to-accent-strong" />
-                <div className="text-xs">
-                  <div className="font-semibold text-text-primary leading-none">{admin.name}</div>
-                  <div className="text-text-muted">{admin.role}</div>
-                </div>
-              </div>
-              <button
-                onClick={() => {
-                  logout();
-                  toast({ variant: "default", title: "已登出" });
-                  router.push("/admin/login");
-                }}
-                className="size-9 rounded-full border border-border inline-flex items-center justify-center text-text-secondary hover:text-danger hover:border-danger transition-colors"
-                aria-label="登出"
-              >
-                <LogOut className="size-4" />
-              </button>
-            </>
-          ) : null}
-        </div>
+    <div className="adm-topbar">
+      <div className="adm-crumbs">
+        <a href="/admin">CMS</a>
+        <span className="sep">/</span>
+        <span className="current">{label}</span>
       </div>
-    </header>
+      <div className="adm-search">
+        <span className="adm-search-icon">
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.8">
+            <circle cx="9" cy="9" r="6" />
+            <path d="m17 17-3.5-3.5" />
+          </svg>
+        </span>
+        <input placeholder="搜尋影片 / 文章 / 會員 / 訂單 ID …" />
+      </div>
+      <div className="adm-top-actions">
+        <button className="adm-icon-btn" aria-label="通知">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6">
+            <path d="M5 8a5 5 0 0 1 10 0c0 4 2 5 2 5H3s2-1 2-5z" />
+            <path d="M8 16a2 2 0 0 0 4 0" />
+          </svg>
+          <span className="dot" />
+        </button>
+        <button className="adm-icon-btn" aria-label="設定">
+          <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6">
+            <circle cx="10" cy="10" r="2.5" />
+            <path d="M10 1.5v3M10 15.5v3M3.6 3.6l2 2M14.4 14.4l2 2M1.5 10h3M15.5 10h3M3.6 16.4l2-2M14.4 5.6l2-2" />
+          </svg>
+        </button>
+      </div>
+    </div>
   );
 }

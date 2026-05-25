@@ -1,106 +1,106 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { ChevronDown, ChevronRight } from "lucide-react";
-import { ADMIN_NAV, type AdminNavItem } from "@/lib/nav";
-import { HakkaLogo } from "@/components/front/layout/logo";
-import { cn } from "@/lib/utils";
+import { usePathname, useRouter } from "next/navigation";
+import { useAuth } from "@/lib/store/auth";
+
+interface Route {
+  id: string;
+  href: string;
+  label: string;
+  badge?: string;
+  icon: React.ReactNode;
+  section: "overview" | "cms";
+}
+
+// Inline SVG icons that match the design (simple, monochrome, currentColor)
+const Icons = {
+  dashboard: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="2.5" y="2.5" width="6.5" height="6.5" rx="1.5" /><rect x="11" y="2.5" width="6.5" height="6.5" rx="1.5" /><rect x="2.5" y="11" width="6.5" height="6.5" rx="1.5" /><rect x="11" y="11" width="6.5" height="6.5" rx="1.5" /></svg>,
+  video: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="2" y="4" width="13" height="12" rx="1.5" /><path d="M15 8l3-2v8l-3-2" /></svg>,
+  content: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M4 2.5h12M4 7h12M4 11.5h12M4 16h8" /></svg>,
+  members: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="10" cy="7" r="3" /><path d="M3 17c0-3.5 3-6 7-6s7 2.5 7 6" /></svg>,
+  orders: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="2.5" y="5" width="15" height="11" rx="1.5" /><path d="M2.5 9h15M5 13h3" /></svg>,
+  access: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="10" cy="8" r="3.5" /><path d="M10 11.5v6M7 14.5h6" /></svg>,
+  analytics: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 17V3M3 17h14M6 14V9M10 14V6M14 14v-4" /></svg>,
+  service: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3.5 16c0-3.5 2.5-6 6.5-6s6.5 2.5 6.5 6" /><circle cx="10" cy="6" r="3" /><path d="M14.5 5.5l2-2" /></svg>,
+  logout: <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M8 4H4v12h4M13 7l3 3-3 3M16 10H8" /></svg>,
+};
+
+const ROUTES: Route[] = [
+  { id: "dashboard", href: "/admin",            label: "總覽 Dashboard", icon: Icons.dashboard, section: "overview" },
+  { id: "videos",    href: "/admin/videos",     label: "影音管理",       icon: Icons.video,    section: "cms", badge: "8" },
+  { id: "news",      href: "/admin/news",       label: "新聞管理",       icon: Icons.content,  section: "cms", badge: "12" },
+  { id: "curations", href: "/admin/curations",  label: "策展管理",       icon: Icons.content,  section: "cms" },
+  { id: "members",   href: "/admin/members",    label: "會員管理",       icon: Icons.members,  section: "cms" },
+  { id: "orders",    href: "/admin/orders",     label: "金流管理",       icon: Icons.orders,   section: "cms", badge: "1" },
+  { id: "access",    href: "/admin/roles",      label: "編輯 / 權限",    icon: Icons.access,   section: "cms" },
+  { id: "analytics", href: "/admin/cdn",        label: "數據分析",       icon: Icons.analytics, section: "cms" },
+  { id: "service",   href: "/admin/service",    label: "支援 / 客服",    icon: Icons.service,  section: "cms", badge: "2" },
+];
 
 export function AdminSidebar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const admin = useAuth((s) => s.admin);
+  const logout = useAuth((s) => s.logoutAdmin);
 
   return (
-    <aside className="hidden lg:block w-64 shrink-0 border-r border-border bg-bg-elevated/60">
-      <div className="sticky top-0 h-screen overflow-y-auto scroll-pretty">
-        <div className="px-5 h-16 flex items-center border-b border-border gap-2">
-          <Link href="/admin" className="inline-flex items-center gap-2">
-            <HakkaLogo size="sm" invert />
-            <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-accent-soft text-accent">Admin</span>
-          </Link>
+    <aside className="adm-sidebar">
+      <Link className="adm-brand" href="/admin">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <g transform="translate(12,12)">
+            <circle cx="0" cy="0" r="10" fill="none" stroke="currentColor" strokeWidth="1.6" />
+            {[0, 72, 144, 216, 288].map((d, i) => (
+              <ellipse key={i} cx="0" cy="-5" rx="2.6" ry="4.2" fill="currentColor" transform={`rotate(${d})`} />
+            ))}
+            <circle cx="0" cy="0" r="1.5" fill="currentColor" />
+          </g>
+        </svg>
+        <div className="adm-brand-text">
+          HAKKA+<small>CMS · ADMIN</small>
         </div>
-        <nav className="p-3 flex flex-col gap-0.5">
-          {ADMIN_NAV.map((item) => (
-            <NavItem key={item.href} item={item} pathname={pathname} />
-          ))}
-        </nav>
-        <div className="p-4 border-t border-border text-xs text-text-muted">
-          v2 POC · prototype only
+      </Link>
+
+      <nav className="adm-nav" aria-label="後台導覽">
+        <div className="adm-nav-sect">Overview</div>
+        {ROUTES.filter((r) => r.section === "overview").map((r) => {
+          const active = pathname === r.href;
+          return (
+            <Link key={r.id} className={`adm-nav-item ${active ? "is-on" : ""}`} href={r.href}>
+              {r.icon}
+              <span>{r.label}</span>
+            </Link>
+          );
+        })}
+
+        <div className="adm-nav-sect">CMS · 7 大類</div>
+        {ROUTES.filter((r) => r.section === "cms").map((r) => {
+          const active = pathname === r.href || pathname.startsWith(r.href + "/");
+          return (
+            <Link key={r.id} className={`adm-nav-item ${active ? "is-on" : ""}`} href={r.href}>
+              {r.icon}
+              <span>{r.label}</span>
+              {r.badge ? <span className="adm-nav-badge">{r.badge}</span> : null}
+            </Link>
+          );
+        })}
+      </nav>
+
+      <div className="adm-sidebar-footer">
+        <span className="adm-avatar">{admin?.name?.charAt(0) ?? "張"}</span>
+        <div className="adm-user-info">
+          <span className="adm-user-name">{admin?.name ?? "張家瑋"}</span>
+          <span className="adm-user-role">{admin?.role === "superadmin" ? "總編" : "編輯"} · UID 7102</span>
         </div>
+        <button
+          className="adm-icon-btn"
+          aria-label="登出"
+          style={{ color: "rgba(255,255,255,0.6)" }}
+          onClick={() => { logout(); router.replace("/admin/login"); }}
+        >
+          {Icons.logout}
+        </button>
       </div>
     </aside>
-  );
-}
-
-function NavItem({ item, pathname }: { item: AdminNavItem; pathname: string }) {
-  const hasChildren = !!item.children?.length;
-  const exactlyHere = pathname === item.href;
-  const insideHere = pathname === item.href || pathname.startsWith(item.href + "/");
-  const [open, setOpen] = useState(insideHere);
-  const Icon = item.icon;
-
-  if (!hasChildren) {
-    return (
-      <Link
-        href={item.href}
-        className={cn(
-          "flex items-center gap-2.5 px-3 h-9 rounded-md text-sm transition-colors",
-          exactlyHere
-            ? "bg-accent text-text-inverse font-semibold"
-            : "text-text-secondary hover:bg-bg-card hover:text-text-primary",
-        )}
-      >
-        <Icon className="size-4" />
-        <span className="flex-1 truncate">{item.label}</span>
-        {item.badge && (
-          <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-accent-warm text-text-inverse">
-            {item.badge}
-          </span>
-        )}
-      </Link>
-    );
-  }
-
-  return (
-    <div>
-      <button
-        onClick={() => setOpen(!open)}
-        className={cn(
-          "w-full flex items-center gap-2.5 px-3 h-9 rounded-md text-sm transition-colors",
-          insideHere ? "text-text-primary" : "text-text-secondary hover:text-text-primary",
-        )}
-      >
-        <Icon className="size-4" />
-        <span className="flex-1 truncate text-left font-medium">{item.label}</span>
-        {item.badge && (
-          <span className="text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-accent-warm text-text-inverse">
-            {item.badge}
-          </span>
-        )}
-        {open ? <ChevronDown className="size-3.5" /> : <ChevronRight className="size-3.5" />}
-      </button>
-      {open && (
-        <div className="ml-3 mt-0.5 pl-3 border-l border-border flex flex-col gap-0.5">
-          {item.children!.map((c) => {
-            const here = pathname === c.href;
-            return (
-              <Link
-                key={c.href}
-                href={c.href}
-                className={cn(
-                  "px-3 h-8 inline-flex items-center rounded-md text-xs transition-colors",
-                  here
-                    ? "bg-accent-soft text-accent font-semibold"
-                    : "text-text-secondary hover:bg-bg-card hover:text-text-primary",
-                )}
-              >
-                {c.label}
-              </Link>
-            );
-          })}
-        </div>
-      )}
-    </div>
   );
 }

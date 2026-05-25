@@ -1,5 +1,7 @@
 "use client";
 
+import "../style-a-admin.css";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/layout/sidebar";
 import { AdminTopbar } from "@/components/admin/layout/topbar";
@@ -9,19 +11,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const isLogin = pathname === "/admin/login";
 
-  // Login page renders standalone — no sidebar / topbar / guard.
+  // Apply admin light theme to the document root
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", "admin");
+    return () => document.documentElement.removeAttribute("data-theme");
+  }, []);
+
+  // Login page renders standalone — no sidebar / topbar / guard
   if (isLogin) {
     return <>{children}</>;
   }
 
   return (
     <AdminGuard>
-      <div className="min-h-screen flex">
+      <div className="adm-layout">
         <AdminSidebar />
-        <div className="flex-1 min-w-0 flex flex-col">
+        <main>
           <AdminTopbar />
-          <main className="flex-1 px-6 py-8 lg:px-10 lg:py-10">{children}</main>
-        </div>
+          <div className="adm-page">{children}</div>
+        </main>
       </div>
     </AdminGuard>
   );
