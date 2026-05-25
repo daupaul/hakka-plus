@@ -42,10 +42,11 @@ export function Header() {
           <Image
             src={senior ? "/hakka-logo-dark.png" : "/hakka-logo.png"}
             alt="HakkaTV"
-            width={160}
-            height={40}
+            width={senior ? 200 : 160}
+            height={senior ? 50 : 40}
             priority
             className="brand-logo-img"
+            style={{ height: "auto" }}
           />
         </Link>
 

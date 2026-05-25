@@ -47,14 +47,73 @@
 }
 
 /* ============================================================
-   Senior-friendly — uses the same [data-elder="true"] toggle the
-   .fig design uses (NOT a body class). Maps to my Zustand store.
+   Senior-friendly (L1-J) — 對應 v2 評委 M3 + 提案 §1.5 7 項 L3 規格
+   - 字級 +22% (type-scale 1.22)
+   - 按鈕 ≥ 48px (tap-min)
+   - 行高 1.4
+   - 淺底高對比配色 (對比 ≥ 4.5:1，符合 WCAG 2.1 AA)
+   - Style A token override
    ============================================================ */
 .senior-mode {
   --type-scale: 1.22;
   --tap-min: 48px;
   --line-mult: 1.4;
+
+  /* Light background (cream paper) — 提案明列的「淺底高對比」 */
+  --bg-base: #fbf9f3;
+  --bg-elevated: #ffffff;
+  --bg-card: #ffffff;
+  --bg-deep: #ece8dc;
+  --bg-soft: #f3f0e6;
+
+  /* Dark ink text — 對比 ≥ 4.5:1 */
+  --text-primary: #14181a;
+  --text-secondary: rgba(20, 24, 26, 0.75);
+  --text-muted: rgba(20, 24, 26, 0.55);
+  --text-dim: rgba(20, 24, 26, 0.45);
+  --text-inverse: #ffffff;
+
+  /* Hakka deep green accent (深綠提供更高對比，符合 WCAG AA) */
+  --accent-mint: #00703c;
+  --accent-main: #00703c;
+  --accent-strong: #005a30;
+  --accent-deep: #00703c;
+  --accent-pale: #d4ecd9;
+
+  /* Border / shadow */
+  --border-default: rgba(20, 24, 26, 0.18);
+  --border-strong: rgba(20, 24, 26, 0.35);
 }
+
+/* Senior mode — site header inverts to cream bg + dark logo */
+.senior-mode .site-header {
+  background: rgba(251, 249, 243, 0.95) !important;
+  border-bottom: 1px solid rgba(20,24,26,0.12) !important;
+}
+.senior-mode .site-header .header-en-pill {
+  background: #14181a;
+  color: #fff;
+}
+.senior-mode .site-header .header-en-pill:hover {
+  background: var(--accent-main);
+}
+
+/* Senior mode — Tailwind v4 bg-bg-base utility 也要翻成淺色 */
+.senior-mode { color-scheme: light; }
+.senior-mode .bg-bg-base { background: #fbf9f3 !important; }
+.senior-mode .bg-bg-elevated { background: #ffffff !important; }
+.senior-mode .text-text-primary { color: #14181a !important; }
+.senior-mode .text-text-secondary { color: rgba(20,24,26,0.75) !important; }
+
+/* Senior mode — Hide decorative complex sections (per 提案 §1.5: 簡化版首頁，凸顯節目表+新聞) */
+.senior-mode .fc-section,        /* Fresh Contents — 行銷裝飾性 */
+.senior-mode .ts-section,        /* 24hr Timeline — 視覺特效 */
+.senior-mode .hl-section {       /* Hakka Life mint reels */
+  display: none;
+}
+
+/* Senior mode — single-layer nav (only show core 3 tabs, hide search/EN actions) */
+.senior-mode .site-actions { display: none; }
 
 /* Shared atom — round mint nav button */
 .circle-nav {
