@@ -12,13 +12,14 @@ import { useContent } from "@/lib/store/content";
  * hardcoded（不開放從後台改 24hr 對應規則）。
  */
 
+/** time = TimeSlot.time 的穩定鍵；label 給後台改也不影響配對 */
 const MOODS = [
-  { id: "zhao-chen", label: "朝晨", en: "Dawn",        hours: [5, 6, 7, 8] },
-  { id: "dang-zhou", label: "當晝", en: "Midday",      hours: [9, 10, 11, 12] },
-  { id: "zhou-bian", label: "晝邊", en: "Afternoon",   hours: [13, 14, 15, 16] },
-  { id: "an-bu",     label: "暗哺", en: "Dusk",        hours: [17, 18] },
-  { id: "an-ye",     label: "暗夜", en: "Night",       hours: [19, 20, 21, 22] },
-  { id: "ye-shen",   label: "夜深", en: "Deep Night",  hours: [23, 0, 1, 2, 3, 4] },
+  { id: "zhao-chen", time: "06:00", label: "朝晨", en: "Dawn",       hours: [5, 6, 7, 8] },
+  { id: "dang-zhou", time: "12:24", label: "當晝", en: "Midday",     hours: [9, 10, 11, 12] },
+  { id: "zhou-bian", time: "15:00", label: "晝邊", en: "Afternoon",  hours: [13, 14, 15, 16] },
+  { id: "an-bu",     time: "18:39", label: "暗哺", en: "Dusk",       hours: [17, 18] },
+  { id: "an-ye",     time: "21:00", label: "暗夜", en: "Night",      hours: [19, 20, 21, 22] },
+  { id: "ye-shen",   time: "03:00", label: "夜深", en: "Deep Night", hours: [23, 0, 1, 2, 3, 4] },
 ];
 
 const TYPE_LABEL: Record<string, string> = {
@@ -43,10 +44,14 @@ export function TimelineSignature() {
   const hour = forcedHour ?? now?.getHours() ?? 12;
   const minute = now?.getMinutes() ?? 0;
   const currentMood = useMemo(() => MOODS.find((m) => m.hours.includes(hour)) ?? MOODS[2], [hour]);
-  // 用 label 把 MOOD 對應到後台 store 的 TimeSlot（後台改 label / description / 推薦清單即時反映）
+  // 用 time（穩定 key）對應 store；label / hours 可以給後台改不影響配對
+  const moodIdxStable = MOODS.indexOf(currentMood);
   const slot = useMemo(
-    () => timeline.find((t) => t.label === currentMood.label),
-    [timeline, currentMood],
+    () =>
+      timeline.find((t) => t.time === currentMood.time) ??
+      timeline.find((t) => t.label === currentMood.label) ??
+      timeline[moodIdxStable],
+    [timeline, currentMood, moodIdxStable],
   );
   const moodLabel = slot?.label ?? currentMood.label;
   const recommendations = slot?.recommendations ?? [];
