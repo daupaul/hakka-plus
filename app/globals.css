@@ -73,9 +73,16 @@
   color: #1a1f1d !important;
 }
 
-/* Admin sidebar — let HakkaLogo PNG show at its natural display size */
-[data-theme="admin"] .adm-brand { padding: 12px 8px 20px; gap: 6px; flex-direction: column; align-items: flex-start; }
-[data-theme="admin"] .adm-brand img { display: block; }
+/* Admin sidebar — let HakkaLogo (inline SVG) keep its natural 160×40 size */
+[data-theme="admin"] .adm-brand { padding: 12px 12px 20px; gap: 6px; flex-direction: column; align-items: flex-start; }
+[data-theme="admin"] .adm-brand svg,
+[data-theme="admin"] .adm-brand img {
+  width: 160px !important;
+  height: 40px !important;
+  display: block;
+  flex-shrink: 0;
+  color: inherit;
+}
 [data-theme="admin"] .adm-brand-text { display: none; }
 
 /* ============================================================
