@@ -101,19 +101,24 @@ export function TimelineSignature() {
             </div>
 
             <div className="ts-mood-pips" role="tablist" aria-label="客語時段切換">
-              {MOODS.map((m, i) => (
-                <button
-                  key={m.id}
-                  className={`ts-pip ${i === moodIdx ? "is-on" : ""}`}
-                  onClick={() => setForcedHour(m.hours[0])}
-                  role="tab"
-                  aria-selected={i === moodIdx}
-                  title={`切換到 ${m.label}`}
-                >
-                  <span className="ts-pip-dot" />
-                  <span className="ts-pip-label">{m.label}</span>
-                </button>
-              ))}
+              {MOODS.map((m, i) => {
+                // 同步從 store 取對應 slot 的 label，後台改名即時反映
+                const pipSlot = timeline.find((t) => t.time === m.time) ?? timeline.find((t) => t.label === m.label) ?? timeline[i];
+                const pipLabel = pipSlot?.label ?? m.label;
+                return (
+                  <button
+                    key={m.id}
+                    className={`ts-pip ${i === moodIdx ? "is-on" : ""}`}
+                    onClick={() => setForcedHour(m.hours[0])}
+                    role="tab"
+                    aria-selected={i === moodIdx}
+                    title={`切換到 ${pipLabel}`}
+                  >
+                    <span className="ts-pip-dot" />
+                    <span className="ts-pip-label">{pipLabel}</span>
+                  </button>
+                );
+              })}
             </div>
 
             <div className="ts-nav">
