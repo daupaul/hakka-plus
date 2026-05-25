@@ -27,7 +27,7 @@ export default function AdminLoginPage() {
       <div className="w-full max-w-md card p-8 space-y-6">
         <div>
           <div className="flex items-center gap-2">
-            <Image src="/hakka-logo-dark.png" alt="HakkaTV" width={160} height={40} priority style={{ height: "auto" }} />
+            <Image src="/hakka-logo.png" alt="HakkaTV" width={160} height={40} priority style={{ height: "auto" }} />
             <span className="text-xs font-semibold px-2 py-0.5 rounded-md bg-accent-soft text-accent">Admin</span>
           </div>
           <p className="mt-3 text-sm text-text-secondary">
