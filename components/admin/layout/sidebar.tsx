@@ -24,6 +24,7 @@ const Icons = {
   access: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><circle cx="10" cy="8" r="3.5" /><path d="M10 11.5v6M7 14.5h6" /></svg>,
   analytics: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3 17V3M3 17h14M6 14V9M10 14V6M14 14v-4" /></svg>,
   service: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M3.5 16c0-3.5 2.5-6 6.5-6s6.5 2.5 6.5 6" /><circle cx="10" cy="6" r="3" /><path d="M14.5 5.5l2-2" /></svg>,
+  schedule: <svg width="18" height="18" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><rect x="2.5" y="3.5" width="15" height="14" rx="1.5" /><path d="M2.5 7.5h15M6.5 2v3M13.5 2v3" /></svg>,
   logout: <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.6"><path d="M8 4H4v12h4M13 7l3 3-3 3M16 10H8" /></svg>,
 };
 
@@ -32,6 +33,8 @@ const ROUTES: Route[] = [
   { id: "videos",    href: "/admin/videos",     label: "影音管理",       icon: Icons.video,    section: "cms", badge: "8" },
   { id: "news",      href: "/admin/news",       label: "新聞管理",       icon: Icons.content,  section: "cms", badge: "12" },
   { id: "curations", href: "/admin/curations",  label: "策展管理",       icon: Icons.content,  section: "cms" },
+  { id: "timeline",  href: "/admin/timeline",   label: "客家生活時間軸", icon: Icons.schedule, section: "cms" },
+  { id: "schedule",  href: "/admin/schedule",   label: "節目表 & 直播",  icon: Icons.schedule, section: "cms" },
   { id: "members",   href: "/admin/members",    label: "會員管理",       icon: Icons.members,  section: "cms" },
   { id: "orders",    href: "/admin/orders",     label: "金流管理",       icon: Icons.orders,   section: "cms", badge: "1" },
   { id: "access",    href: "/admin/roles",      label: "編輯 / 權限",    icon: Icons.access,   section: "cms" },
