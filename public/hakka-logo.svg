@@ -1,25 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="currentColor" role="img" aria-label="HakkaTV">
-  <!-- 5-petal Tung flower icon inside a ring -->
-  <g transform="translate(30 30)">
-    <!-- Outer ring -->
-    <circle r="24" fill="none" stroke="currentColor" stroke-width="2.8"/>
-    <!-- 5 petals: 72° apart, teardrop shape from center -->
-    <g>
-      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z"/>
-      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z" transform="rotate(72)"/>
-      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z" transform="rotate(144)"/>
-      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z" transform="rotate(216)"/>
-      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z" transform="rotate(288)"/>
-    </g>
-    <!-- Center stamen dot -->
-    <circle r="2.8"/>
-  </g>
-
-  <!-- "HakkaTV" wordmark — bold sans-serif -->
-  <text x="68" y="40"
-        font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Noto Sans TC', system-ui, sans-serif"
-        font-weight="900"
-        font-size="30"
-        letter-spacing="-1.2"
-        fill="currentColor">Hakka<tspan font-style="italic" letter-spacing="-0.5">TV</tspan></text>
+<svg width="160" height="40" viewBox="0 0 160 40" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect width="160" height="40" fill="url(#pattern0_595_9808)"/>
+<defs>
+<pattern id="pattern0_595_9808" patternContentUnits="objectBoundingBox" width="1" height="1">
+<use xlink:href="#image0_595_9808" transform="matrix(0.000710227 0 0 0.00284091 -0.0159801 0)"/>
+</pattern>
+<image id="image0_595_9808" width="1453" height="352" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
+</defs>
 </svg>
