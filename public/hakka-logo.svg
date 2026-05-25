@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="currentColor" role="img" aria-label="HakkaTV">
+  <!-- 5-petal Tung flower icon inside a ring -->
+  <g transform="translate(30 30)">
+    <!-- Outer ring -->
+    <circle r="24" fill="none" stroke="currentColor" stroke-width="2.8"/>
+    <!-- 5 petals: 72° apart, teardrop shape from center -->
+    <g>
+      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z"/>
+      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z" transform="rotate(72)"/>
+      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z" transform="rotate(144)"/>
+      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z" transform="rotate(216)"/>
+      <path d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z" transform="rotate(288)"/>
+    </g>
+    <!-- Center stamen dot -->
+    <circle r="2.8"/>
+  </g>
+
+  <!-- "HakkaTV" wordmark — bold sans-serif -->
+  <text x="68" y="40"
+        font-family="-apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Noto Sans TC', system-ui, sans-serif"
+        font-weight="900"
+        font-size="30"
+        letter-spacing="-1.2"
+        fill="currentColor">Hakka<tspan font-style="italic" letter-spacing="-0.5">TV</tspan></text>
+</svg>

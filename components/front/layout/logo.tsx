@@ -3,54 +3,45 @@ import { cn } from "@/lib/utils";
 interface Props {
   className?: string;
   size?: "sm" | "md" | "lg";
-  /** When true, use dark ink suitable for light backgrounds. */
+  /** Use dark ink (for light backgrounds) */
   invert?: boolean;
 }
 
-const SIZES = {
-  sm: "h-6",
-  md: "h-7 lg:h-8",
-  lg: "h-9 lg:h-10",
-};
+const SIZES = { sm: "h-6", md: "h-7 lg:h-9", lg: "h-9 lg:h-11" };
 
 /**
- * HakkaTV brand mark — vector SVG replica of the official 油桐花 (tung flower) logo.
- * Crisp at any size, supports both white-on-dark and dark-on-light via `invert`.
+ * HakkaTV brand mark — pure inline SVG, infinitely crisp at any size.
+ * 5-petal 油桐花 icon + bold "HakkaTV" wordmark.
  */
 export function HakkaLogo({ className, size = "md", invert = false }: Props) {
   return (
     <svg
-      viewBox="0 0 220 56"
-      className={cn(SIZES[size], "w-auto", invert ? "text-text-primary" : "text-white", className)}
+      viewBox="0 0 240 60"
+      className={cn(SIZES[size], "w-auto", invert ? "text-[#14181a]" : "text-white", className)}
       fill="currentColor"
+      role="img"
       aria-label="HakkaTV"
     >
-      {/* 5-petal Tung flower (官方客家電視台油桐花) */}
-      <g transform="translate(28 28)">
-        {/* Outer ring */}
-        <circle r="22" fill="none" stroke="currentColor" strokeWidth="2.6" />
-        {/* Petals at 0°, 72°, 144°, 216°, 288° */}
-        <g>
-          <ellipse cx="0" cy="-12" rx="3.8" ry="6.5" />
-          <ellipse cx="11.4" cy="-3.7" rx="6.5" ry="3.8" transform="rotate(-30 11.4 -3.7)" />
-          <ellipse cx="7" cy="9.7" rx="3.8" ry="6.5" transform="rotate(36 7 9.7)" />
-          <ellipse cx="-7" cy="9.7" rx="3.8" ry="6.5" transform="rotate(-36 -7 9.7)" />
-          <ellipse cx="-11.4" cy="-3.7" rx="6.5" ry="3.8" transform="rotate(30 -11.4 -3.7)" />
-        </g>
-        {/* Center dot */}
-        <circle r="2.4" />
+      <g transform="translate(30 30)">
+        <circle r="24" fill="none" stroke="currentColor" strokeWidth="2.8" />
+        {[0, 72, 144, 216, 288].map((deg) => (
+          <path
+            key={deg}
+            d="M 0 -14 C -5.5 -14 -7.5 -7.5 -3.5 -2 C -1.2 0 1.2 0 3.5 -2 C 7.5 -7.5 5.5 -14 0 -14 Z"
+            transform={`rotate(${deg})`}
+          />
+        ))}
+        <circle r="2.8" />
       </g>
-
-      {/* Wordmark */}
       <text
-        x="62"
-        y="38"
-        fontFamily='-apple-system, BlinkMacSystemFont, "Inter", "Noto Sans TC", sans-serif'
+        x="68"
+        y="40"
+        fontFamily='-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Noto Sans TC", system-ui, sans-serif'
         fontWeight="900"
         fontSize="30"
-        letterSpacing="-1"
+        letterSpacing="-1.2"
       >
-        Hakka<tspan fontStyle="italic">TV</tspan>
+        Hakka<tspan fontStyle="italic" letterSpacing="-0.5">TV</tspan>
       </text>
     </svg>
   );

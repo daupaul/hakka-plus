@@ -2,9 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Image from "next/image";
 import { useAuth } from "@/lib/store/auth";
 import { useUi } from "@/lib/store/ui";
+import { HakkaLogo } from "@/components/front/layout/logo";
 
 /**
  * Admin Login — 後台淺色系 (cream paper) + 深綠 mint accent button
@@ -31,7 +31,7 @@ export default function AdminLoginPage() {
 
       <div className="admlogin-card">
         <div className="admlogin-head">
-          <Image src="/hakka-logo-dark.png" alt="HakkaTV" width={160} height={40} priority style={{ height: "auto" }} />
+          <HakkaLogo size="lg" invert />
           <span className="admlogin-pill">CMS · ADMIN</span>
         </div>
         <p className="admlogin-intro">

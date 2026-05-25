@@ -1,9 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/store/auth";
+import { HakkaLogo } from "@/components/front/layout/logo";
 
 interface Route {
   id: string;
@@ -48,17 +48,12 @@ export function AdminSidebar() {
   return (
     <aside className="adm-sidebar">
       <Link className="adm-brand" href="/admin">
-        <Image
-          src="/hakka-logo.png"
-          alt="HakkaTV"
-          width={120}
-          height={30}
-          priority
-          style={{ height: "auto", maxWidth: "100%" }}
-        />
-        <small style={{ fontFamily: "var(--font-mono)", fontSize: 9, letterSpacing: "0.18em", color: "#53E1A1", marginTop: 4, display: "block" }}>
-          CMS · ADMIN
-        </small>
+        <div style={{ flex: 1 }}>
+          <HakkaLogo size="md" />
+          <small style={{ fontFamily: "var(--font-mono)", fontSize: 9, letterSpacing: "0.18em", color: "#53E1A1", marginTop: 4, display: "block" }}>
+            CMS · ADMIN
+          </small>
+        </div>
       </Link>
 
       <nav className="adm-nav" aria-label="後台導覽">
