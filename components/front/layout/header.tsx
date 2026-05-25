@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { useSeniorMode } from "@/lib/store/senior-mode";
 import { useUi } from "@/lib/store/ui";
@@ -38,27 +39,14 @@ export function Header() {
         }}
       >
         <Link className="brand-logo" href="/" aria-label="HakkaTV 客家電視台">
-          <svg className="brand-logo-svg" viewBox="0 0 230 50" fill="none" aria-hidden="true">
-            {/* 5-petal flower icon — abstracted 油桐花 */}
-            <g transform="translate(25, 25)">
-              <circle cx="0" cy="0" r="22" fill="none" stroke="currentColor" strokeWidth="2.2" opacity="0.9" />
-              {[0, 72, 144, 216, 288].map((deg, i) => (
-                <ellipse key={i} cx="0" cy="-10" rx="5.5" ry="9" fill="currentColor" transform={`rotate(${deg})`} />
-              ))}
-              <circle cx="0" cy="0" r="3.2" fill="currentColor" />
-            </g>
-            <text
-              x="58"
-              y="34"
-              fontFamily="Barlow Condensed, sans-serif"
-              fontWeight="700"
-              fontSize="32"
-              fill="currentColor"
-              letterSpacing="-0.5"
-            >
-              HakkaTV
-            </text>
-          </svg>
+          <Image
+            src={senior ? "/hakka-logo-dark.png" : "/hakka-logo.png"}
+            alt="HakkaTV"
+            width={160}
+            height={40}
+            priority
+            className="brand-logo-img"
+          />
         </Link>
 
         <nav className="site-nav" aria-label="主分類">

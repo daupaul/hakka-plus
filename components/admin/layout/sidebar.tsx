@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useAuth } from "@/lib/store/auth";
 
@@ -47,18 +48,17 @@ export function AdminSidebar() {
   return (
     <aside className="adm-sidebar">
       <Link className="adm-brand" href="/admin">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <g transform="translate(12,12)">
-            <circle cx="0" cy="0" r="10" fill="none" stroke="currentColor" strokeWidth="1.6" />
-            {[0, 72, 144, 216, 288].map((d, i) => (
-              <ellipse key={i} cx="0" cy="-5" rx="2.6" ry="4.2" fill="currentColor" transform={`rotate(${d})`} />
-            ))}
-            <circle cx="0" cy="0" r="1.5" fill="currentColor" />
-          </g>
-        </svg>
-        <div className="adm-brand-text">
-          HAKKA+<small>CMS · ADMIN</small>
-        </div>
+        <Image
+          src="/hakka-logo.png"
+          alt="HakkaTV"
+          width={120}
+          height={30}
+          priority
+          style={{ height: "auto", maxWidth: "100%" }}
+        />
+        <small style={{ fontFamily: "var(--font-mono)", fontSize: 9, letterSpacing: "0.18em", color: "#53E1A1", marginTop: 4, display: "block" }}>
+          CMS · ADMIN
+        </small>
       </Link>
 
       <nav className="adm-nav" aria-label="後台導覽">
